@@ -6,4 +6,6 @@ if [ -z "$TARGET_ELVI" ] || [ ! -x "$TARGET_ELVI" ]; then
 	exit 1
 fi
 
+./check-elvis.sh "$TARGET_ELVI" || exit 1
+
 rm "$TARGET_ELVI"
