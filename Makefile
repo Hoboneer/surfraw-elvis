@@ -11,5 +11,5 @@ complex:
 
 .PHONY: clean
 clean:
-	find simple-elvi/ -name '*.elvis' -print0 | xargs -0 rm --
-	find complex-elvi/ -name '*.elvis' -print0 | xargs -0 rm --
+	find simple-elvi/ -name '*.elvis' -print0 | xargs -0 rm -- || true
+	find complex-elvi/ -name '*.elvis' -print0 | xargs -0 rm -- || true
