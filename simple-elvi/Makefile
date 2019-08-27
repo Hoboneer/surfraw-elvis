@@ -1,6 +1,7 @@
 ELVI_FILE := elvi
 OUTPUTS := $(addsuffix .elvis,$(shell cut -d ' ' -f 1 $(ELVI_FILE)))
 
+.PHONY: all
 all: $(OUTPUTS)
 
 %.elvis: $(ELVI_FILE)
