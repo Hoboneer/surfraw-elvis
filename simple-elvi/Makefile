@@ -6,3 +6,11 @@ all: $(OUTPUTS)
 %.elvis: $(ELVI_FILE)
 	grep '^$(basename $@)' $(ELVI_FILE) | xargs mkelvis
 	mv $(basename $@) $@
+
+.PHONY: install
+install:
+	../install.sh $(OUTPUTS)
+
+.PHONY: uninstall
+uninstall:
+	../install.sh -u $(OUTPUTS)
