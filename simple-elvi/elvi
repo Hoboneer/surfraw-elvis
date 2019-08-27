@@ -3,3 +3,8 @@ subsearch www.reddit.com www.reddit.com/subreddits/search?q= --description='Sear
 subreddit www.reddit.com www.reddit.com/r/ --description='Visit a subreddit'
 malusers myanimelist.net myanimelist.net/users.php?q= --description='Search MyAnimeList users'
 malanime myanimelist.net myanimelist.net/anime.php?q= --description='Search MyAnimeList anime database'
+# This is simpler than the `duckduckgo` elvi provided.
+ddg duckduckgo.com duckduckgo.com/?q= --description='Search DuckDuckGo'
+# For easier use in terminal.
+ddglite duckduckgo.com/lite duckduckgo.com/lite/?q= --description='Search DuckDuckGo Lite'
+gitlab gitlab.com gitlab.com/search?search= --description='Search Gitlab'
