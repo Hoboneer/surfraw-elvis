@@ -1,5 +1,5 @@
 ELVI_FILE := elvi
-OUTPUTS := $(addsuffix .elvis,$(shell cut -d ' ' -f 1 $(ELVI_FILE)))
+OUTPUTS := $(addsuffix .elvis,$(shell grep -v '^\#' $(ELVI_FILE) | cut -d ' ' -f 1))
 
 .PHONY: all
 all: $(OUTPUTS)
