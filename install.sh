@@ -6,7 +6,7 @@ ELVI_DIR=${ELVI_DIR:-$HOME/.config/surfraw/elvi}
 usage ()
 {
 	cat <<EOF
-Usage: $0 [--help] [-u] elvis
+Usage: $0 [--help] [-u] elvis...
 Description:
   Install elvi to a specified directory (ELVI_DIR variable).
   The elvis should have a '.elvis' extension and be executable.
