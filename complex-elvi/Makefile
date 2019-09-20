@@ -20,3 +20,7 @@ install:
 .PHONY: uninstall
 uninstall:
 	../install.sh -u $(OUTPUTS)
+
+.PHONY: clean
+clean:
+	-rm -f -- $(OUTPUTS) $(COMPLETIONS)

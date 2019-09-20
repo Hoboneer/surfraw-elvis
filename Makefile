@@ -21,5 +21,5 @@ uninstall:
 
 .PHONY: clean
 clean:
-	find simple-elvi/ -name '*.elvis' -print0 | xargs -0 rm -f --
-	find complex-elvi/ -name '*.elvis' -print0 | xargs -0 rm -f --
+	cd simple-elvi/ && $(MAKE) clean
+	cd complex-elvi/ && $(MAKE) clean
