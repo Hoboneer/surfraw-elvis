@@ -9,6 +9,16 @@ simple:
 complex:
 	cd complex-elvi/ && $(MAKE)
 
+.PHONY: elvi
+elvi:
+	cd simple-elvi/ && $(MAKE) elvi
+	cd complex-elvi/ && $(MAKE) elvi
+
+.PHONY: completions
+completions:
+	cd simple-elvi/ && $(MAKE) completions
+	cd complex-elvi/ && $(MAKE) completions
+
 .PHONY: install
 install:
 	cd simple-elvi/ && $(MAKE) install
