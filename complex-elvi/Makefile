@@ -1,13 +1,17 @@
 OBJECTS := $(wildcard *.in)
 OUTPUTS := $(OBJECTS:.in=.elvis)
+COMPLETIONS := $(OBJECTS:.in=.completion)
 
 .PHONY: all
-all: $(OUTPUTS)
+all: $(OUTPUTS) $(COMPLETIONS)
 
 # I'm not sure how to have a rule match with the basename of something
 %.elvis: %.in
 	cat $< | xargs mkelvis
 	mv $(basename $@) $@
+
+%.completion: %.in
+	cat $< | xargs mkelviscomps
 
 .PHONY: install
 install:
