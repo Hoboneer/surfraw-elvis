@@ -1,6 +1,6 @@
 savannah.gnu.org
 savannah.gnu.org/search/?
---enum=type:soft:soft,people,cookbook,support,bugs,task,patch
+--enum=type:projects:projects,people,cookbook,support,bugs,tasks,patches
 --enum=search:any:any,gnu,nongnu,gnuweb,gug,gnutranslation
 --yes-no=exact:yes
 --map=type:type_of_search
@@ -8,4 +8,6 @@ savannah.gnu.org/search/?
 --map=search:type
 --collapse=exact:yes,on,1:no,off,0
 --collapse=search:any,0:gnu,1:nongnu,2:gnuweb,3:gug,4:gnutranslation,5
+# The rest of the values are what they are in the url already.
+--collapse=type:projects,soft:tasks,task:patches,patch
 --query-parameter=words
