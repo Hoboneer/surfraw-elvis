@@ -1,5 +1,4 @@
 # Reference: https://duckduckgo.com/params
-ddg
 duckduckgo.com/${SURFRAW_betterddg_site}/
 duckduckgo.com/${SURFRAW_betterddg_site}/?
 --description='Search duckduckgo'

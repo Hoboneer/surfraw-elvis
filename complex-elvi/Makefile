@@ -14,11 +14,11 @@ completions: $(COMPLETIONS)
 # I'm not sure how to have a rule match with the basename of something
 # Line comments are permitted
 %.elvis: %.in
-	cat $< | grep -v '^[[:space:]]*\#' | xargs mkelvis
+	cat $< | grep -v '^[[:space:]]*\#' | xargs mkelvis $(basename $@)
 	mv $(basename $@) $@
 
 %.completion: %.in
-	cat $< | grep -v '^[[:space:]]*\#' | xargs mkelviscomps
+	cat $< | grep -v '^[[:space:]]*\#' | xargs mkelviscomps $(basename $@)
 
 .PHONY: install
 install:
