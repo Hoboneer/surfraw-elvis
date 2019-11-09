@@ -1,0 +1,14 @@
+gitlab.com
+gitlab.com/search?
+--description='Search Gitlab'
+
+--anything=ref:master
+--map=ref:repository_ref
+
+# Empty as there is no reasonable default.
+--anything=groupid:
+--map=groupid:group_id
+--anything=projectid:
+--map=projectid:project_id
+
+--query-parameter=search

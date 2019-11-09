@@ -3,4 +3,3 @@ subsearch www.reddit.com www.reddit.com/subreddits/search?q= --description='Sear
 subreddit www.reddit.com www.reddit.com/r/ --description='Visit a subreddit'
 malusers myanimelist.net myanimelist.net/users.php?q= --description='Search MyAnimeList users'
 malanime myanimelist.net myanimelist.net/anime.php?q= --description='Search MyAnimeList anime database'
-gitlab gitlab.com gitlab.com/search?search= --description='Search Gitlab'
