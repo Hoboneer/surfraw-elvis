@@ -1,6 +1,6 @@
 # Reference: https://duckduckgo.com/params
-duckduckgo.com/${SURFRAW_betterddg_site}/
-duckduckgo.com/${SURFRAW_betterddg_site}/?
+duckduckgo.com/${SURFRAW_ddg_site}/
+duckduckgo.com/${SURFRAW_ddg_site}/?
 --description='Search duckduckgo'
 
 --enum=site:lite:lite,html,normal
