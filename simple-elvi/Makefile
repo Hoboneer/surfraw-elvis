@@ -28,4 +28,4 @@ uninstall:
 
 .PHONY: clean
 clean:
-	-rm -f -- $(OUTPUTS) $(COMPLETIONS)
+	-rm -f -- $(wildcard *.elvis *.completion)
