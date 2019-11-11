@@ -1,0 +1,40 @@
+myanimelist.net/anime.php
+myanimelist.net/anime.php?
+--description='Advanced search for MyAnimeList anime'
+
+--enum=type:tv:any,tv,ova,movie,special,ona,music
+--collapse=type:any,0:tv,1:ova,2:movie,3:special,4:ona,5:music,6
+--map=type:type
+
+--enum=score:any:any,1,2,3,4,5,6,7,8,9,10
+--collapse=score:any,0
+--map=score:score
+
+# Named scores are nice
+--member=masterpiece:score:10
+--member=great:score:9
+--member=verygood:score:8
+--member=good:score:7
+--member=fine:score:6
+--member=average:score:5
+--member=bad:score:4
+--member=verybad:score:3
+--member=horrible:score:2
+--member=appalling:score:1
+
+--enum=status:any:any,airing,finished,unaired
+--collapse=status:any,0:airing,1:finished,2:unaired,3
+--map=status:status
+
+# Producer is too complex for surfraw to handle (it has whitespace)
+
+--enum=rating:any:any,g,pg,pg13,r,r+,rx
+--collapse=rating:any,0:g,1:pg,2:pg13,3:r,4:r+,5:rx,6
+--map=rating:r
+
+# Start- and end-dates are too complex for mkelvis to handle right now.  It
+# would be less confusing if the user could specify metavars and help output.
+
+# Columns and genre filter seem to use non-ascii query parameters...
+
+--query-parameter=q
