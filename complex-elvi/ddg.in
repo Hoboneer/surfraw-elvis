@@ -24,4 +24,11 @@ duckduckgo.com/${SURFRAW_ddg_site}/?
 --collapse=redirect:yes,on,1,1:no,off,0,-1
 --map=redirect:kd
 
+# No region by default.
+# There are *way* too many regions to list in an enum; the user should be able
+# to figure out their region, and it is unlikely to be changed from the time
+# the user sets their region in their config file anyway.
+--anything=region:wt-wt
+--map=region:kl
+
 --query-parameter=q
