@@ -1,0 +1,8 @@
+# NOTE: This is only a basic form of searching myanimelist as each search type does not take the same parameters.
+myanimelist.net/${SURFRAW_myanimelist_search}
+myanimelist.net/${SURFRAW_myanimelist_search}?q=
+--description='Search MyAnimeList for anime, manga, characters, people, and users'
+
+# All values are plural form for consistency.
+--enum=search:all:all,anime,manga,characters,people,users
+--collapse=search:all,search/all:anime,manga,people,users,$SURFRAW_myanimelist_search.php:characters,character.php
