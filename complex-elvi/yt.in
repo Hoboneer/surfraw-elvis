@@ -4,6 +4,26 @@ www.youtube.com/results?
 --description='Search YouTube'
 # Singular form to be consistent with youtube's filters UI.
 --enum=type:all:all,video,channel,playlist,movie,show
+
+# Plural and singular forms to allow for easy use and remembering options.
+--member=all:type:all
+
+--member=video:type:video
+--alias=videos:video:member
+--alias=vid:video:member
+
+--member=channel:type:channel
+--alias=channels:channel:member
+
+--member=playlist:type:playlist
+--alias=playlists:playlist:member
+
+--member=movie:type:movie
+--alias=movies:movie:member
+
+--member=show:type:show
+--alias=shows:show:member
+
 --collapse=type:all,:video,EgIQAQ%253D%253D:channel,EgIQAg%253D%253D:playlist,EgIQAw%253D%253D:movie,EgIQBA%253D%253D:show,EgIQBQ%253D%253D
 --map=type:sp
 --query-parameter=search_query
