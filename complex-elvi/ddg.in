@@ -4,8 +4,8 @@ duckduckgo.com/${SURFRAW_ddg_site}/?
 --description='Search duckduckgo'
 
 --enum=site:lite:lite,html,normal
---member=javascript:site:normal
---alias=j:javascript:member
+--flag=javascript:site:normal
+--alias=j:javascript:flag
 # The normal site has no specific string in the URL.
 --collapse=site:normal,
 

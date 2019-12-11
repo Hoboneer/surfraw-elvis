@@ -11,16 +11,16 @@ myanimelist.net/anime.php?
 --map=score:score
 
 # Named scores are nice
---member=masterpiece:score:10
---member=great:score:9
---member=verygood:score:8
---member=good:score:7
---member=fine:score:6
---member=average:score:5
---member=bad:score:4
---member=verybad:score:3
---member=horrible:score:2
---member=appalling:score:1
+--flag=masterpiece:score:10
+--flag=great:score:9
+--flag=verygood:score:8
+--flag=good:score:7
+--flag=fine:score:6
+--flag=average:score:5
+--flag=bad:score:4
+--flag=verybad:score:3
+--flag=horrible:score:2
+--flag=appalling:score:1
 
 --enum=status:any:any,airing,finished,unaired
 --collapse=status:any,0:airing,1:finished,2:unaired,3

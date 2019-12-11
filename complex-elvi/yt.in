@@ -6,23 +6,23 @@ www.youtube.com/results?
 --enum=type:all:all,video,channel,playlist,movie,show
 
 # Plural and singular forms to allow for easy use and remembering options.
---member=all:type:all
+--flag=all:type:all
 
---member=video:type:video
---alias=videos:video:member
---alias=vid:video:member
+--flag=video:type:video
+--alias=videos:video:flag
+--alias=vid:video:flag
 
---member=channel:type:channel
---alias=channels:channel:member
+--flag=channel:type:channel
+--alias=channels:channel:flag
 
---member=playlist:type:playlist
---alias=playlists:playlist:member
+--flag=playlist:type:playlist
+--alias=playlists:playlist:flag
 
---member=movie:type:movie
---alias=movies:movie:member
+--flag=movie:type:movie
+--alias=movies:movie:flag
 
---member=show:type:show
---alias=shows:show:member
+--flag=show:type:show
+--alias=shows:show:flag
 
 --collapse=type:all,:video,EgIQAQ%253D%253D:channel,EgIQAg%253D%253D:playlist,EgIQAw%253D%253D:movie,EgIQBA%253D%253D:show,EgIQBQ%253D%253D
 --map=type:sp
