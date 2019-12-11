@@ -14,4 +14,7 @@ savannah.gnu.org/search/?
 --collapse=exact:yes,on,1:no,off,0
 --map=exact:exact
 
+--use-results-option
+--map=results:max_rows
+
 --query-parameter=words
