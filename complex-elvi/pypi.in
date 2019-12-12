@@ -1,0 +1,12 @@
+pypi.org
+pypi.org/search/?
+--description='Search PyPI for projects'
+
+--enum=sort:relevance:relevance,last-updated,trending
+--collapse=sort:relevance,:last-updated,-created:trending,-zscore
+--map=sort:o
+
+# Classifiers are too complex for mkelvis to handle because it duplicates query
+# parameters to allow for multiple classifiers at once.
+
+--query-parameter=q
