@@ -1,6 +1,9 @@
 OBJECTS := $(wildcard *.in *.sh-in)
-OUTPUTS := $(OBJECTS:.in=.elvis) $(OBJECTS:.sh-in=.elvis)
-COMPLETIONS := $(OBJECTS:.in=.completion) $(OBJECTS:.sh-in=.completion)
+OUTPUTS := $(OBJECTS:.in=.elvis)
+OUTPUTS := $(OUTPUTS:.sh-in=.elvis)
+COMPLETIONS := $(OBJECTS:.in=.completion)
+COMPLETIONS := $(COMPLETIONS:.sh-in=.completion)
+
 
 .PHONY: all
 all: elvi completions
