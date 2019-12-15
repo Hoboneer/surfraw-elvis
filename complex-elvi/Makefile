@@ -1,6 +1,6 @@
-OBJECTS := $(wildcard *.in)
-OUTPUTS := $(OBJECTS:.in=.elvis)
-COMPLETIONS := $(OBJECTS:.in=.completion)
+OBJECTS := $(wildcard *.in *.sh-in)
+OUTPUTS := $(OBJECTS:.in=.elvis) $(OBJECTS:.sh-in=.elvis)
+COMPLETIONS := $(OBJECTS:.in=.completion) $(OBJECTS:.sh-in=.completion)
 
 .PHONY: all
 all: elvi completions
@@ -17,8 +17,15 @@ completions: $(COMPLETIONS)
 	grep -v '^[[:space:]]*\#' $< | xargs mkelvis $(basename $@)
 	mv $(basename $@) $@
 
+%.elvis: %.sh-in
+	./$< | grep -v '^[[:space:]]*\#' | xargs mkelvis $(basename $@)
+	mv $(basename $@) $@
+
 %.completion: %.in
 	grep -v '^[[:space:]]*\#' $< | xargs mkelviscomps $(basename $@)
+
+%.completion: %.sh-in
+	./$< | grep -v '^[[:space:]]*\#' | xargs mkelviscomps $(basename $@)
 
 .PHONY: install
 install:
