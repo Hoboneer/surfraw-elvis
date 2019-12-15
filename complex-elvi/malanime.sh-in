@@ -1,3 +1,5 @@
+#!/bin/sh
+cat <<EOF
 myanimelist.net/anime.php
 myanimelist.net/anime.php?
 --description='Advanced search for MyAnimeList anime'
@@ -35,9 +37,24 @@ myanimelist.net/anime.php?
 # Start- and end-dates are too complex for mkelvis to handle right now.  It
 # would be less confusing if the user could specify metavars and help output.
 
-# Columns and genre filter seem to use non-ascii query parameters...
 --enum=columns:type,episodes,score,total-members:type,episodes,score,start-date,end-date,total-members,rating:yes
 --collapse=columns:type,a:episodes,b:score,c:start-date,d:end-date,e:total-members,f:rating,g
 --list-map=columns:c[]
+EOF
 
---query-parameter=q
+genres='action,adventure,cars,comedy,dementia,demons,mystery,drama,ecchi,fantasy,game,hentai,historical,horror,kids,magic,martial-arts,mecha,music,parody,samurai,romance,school,sci-fi,shoujo,shoujo-ai,shounen,shounen-ai,space,sports,super-power,vampire,yaoi,yuri,harem,slice-of-life,supernatural,military,police,psychological'
+echo "--enum=genres::$genres:yes"
+default_ifs=' 	
+'
+old_ifs="${IFS:-$default_ifs}"
+IFS=,
+i=1
+collapses='--collapse=genres'
+for genre in $genres; do
+	collapses="${collapses}:$genre,$i"
+	i="$(( $i + 1 ))"
+done
+IFS="$old_ifs"
+echo $collapses
+echo '--enum=genrefilter:include:include,exclude'
+echo '--query-parameter=q'
