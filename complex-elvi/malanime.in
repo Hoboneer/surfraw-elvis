@@ -36,5 +36,8 @@ myanimelist.net/anime.php?
 # would be less confusing if the user could specify metavars and help output.
 
 # Columns and genre filter seem to use non-ascii query parameters...
+--enum=columns:type,episodes,score,total-members:type,episodes,score,start-date,end-date,total-members,rating:yes
+--collapse=columns:type,a:episodes,b:score,c:start-date,d:end-date,e:total-members,f:rating,g
+--list-map=columns:c[]
 
 --query-parameter=q
