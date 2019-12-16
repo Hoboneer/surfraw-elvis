@@ -1,0 +1,20 @@
+# Reference: https://www.reddit.com/dev/api#GET_search
+www.reddit.com
+www.reddit.com/search?
+--description='Search reddit'
+
+--enum=sort:relevance:relevance,hot,top,new,comments
+--map=sort:sort
+
+--enum=time:all-time:hour,day,week,year,all-time
+--collapse=time:all-time,all
+--map=time:t
+
+--enum=types:subreddit,link,user:subreddit,link,user:yes
+--collapse=types:subreddit,sr
+--map=types:type
+
+# I don't know how the rest of the url parameters work nor whether they work in
+# a text browser.
+
+--query-parameter=q
