@@ -6,11 +6,11 @@ pypi.org/search/?
 --collapse=sort:relevance,:last-updated,-created:trending,-zscore
 --map=sort:o
 
---enum=statuses::planning,pre-alpha,alpha,beta,production,stable,mature,inactive:yes
+--list=statuses:enum::planning,pre-alpha,alpha,beta,production,stable,mature,inactive
 --collapse=statuses:planning,Development+Status+%3A%3A+1+-+Planning:pre-alpha,Development+Status+%3A%3A+2+-+Pre-Alpha:alpha,Development+Status+%3A%3A+3+-+Alpha:beta,Development+Status+%3A%3A+4+-+Beta:production,stable,Development+Status+%3A%3A+5+-+Production%2FStable:mature,Development+Status+%3A%3A+6+-+Mature:inactive,Development+Status+%3A%3A+7+-+Inactive
 --list-map=statuses:c
 
---enum=audiences::customer-service,developers,education,end-users,desktop,finance,insurance,healthcare,it,legal,manufacturing,other,religion,science,research,sysadmins,telcos:yes
+--list=audiences:enum::customer-service,developers,education,end-users,desktop,finance,insurance,healthcare,it,legal,manufacturing,other,religion,science,research,sysadmins,telcos
 --collapse=audiences:customer-service,Intended+Audience+%3A%3A+Customer+Service:developers,Intended+Audience+%3A%3A+Developers:education,Intended+Audience+%3A%3A+Education:end-users,desktop,Intended+Audience+%3A%3A+End+Users%2FDesktop:finance,insurance,Intended+Audience+%3A%3A+Financial+and+Insurance+Industry:healthcare,Intended+Audience+%3A%3A+Healthcare+Industry:it,Intended+Audience+%3A%3A+Information+Technology:legal,Intended+Audience+%3A%3A+Legal+Industry:manufacturing,Intended+Audience+%3A%3A+Manufacturing:other,Intended+Audience+%3A%3A+Other+Audience:religion,Intended+Audience+%3A%3A+Religion:science,research,Intended+Audience+%3A%3A+Science%2FResearch:sysadmins,Intended+Audience+%3A%3A+System+Administrators:telcos,Intended+Audience+%3A%3A+Telecommunications+Industry
 --list-map=audiences:c
 

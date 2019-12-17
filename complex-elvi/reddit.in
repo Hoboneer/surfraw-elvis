@@ -10,7 +10,7 @@ www.reddit.com/search?
 --collapse=time:all-time,all
 --map=time:t
 
---enum=types:subreddit,link,user:subreddit,link,user:yes
+--list=types:enum:subreddit,link,user:subreddit,link,user
 --collapse=types:subreddit,sr
 --map=types:type
 
