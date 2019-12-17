@@ -1,0 +1,64 @@
+#!/bin/sh
+cat <<EOF
+myanimelist.net/anime.php
+myanimelist.net/anime.php?
+--description='Advanced search for MyAnimeList anime'
+
+--enum=type:tv:any,tv,ova,movie,special,ona,music
+--collapse=type:any,0:tv,1:ova,2:movie,3:special,4:ona,5:music,6
+--map=type:type
+
+--enum=score:any:any,1,2,3,4,5,6,7,8,9,10
+--collapse=score:any,0
+--map=score:score
+
+# Named scores are nice
+--flag=masterpiece:score:10
+--flag=great:score:9
+--flag=verygood:score:8
+--flag=good:score:7
+--flag=fine:score:6
+--flag=average:score:5
+--flag=bad:score:4
+--flag=verybad:score:3
+--flag=horrible:score:2
+--flag=appalling:score:1
+
+--enum=status:any:any,airing,finished,unaired
+--collapse=status:any,0:airing,1:finished,2:unaired,3
+--map=status:status
+
+# Producer is too complex for surfraw to handle (it has whitespace and there are wayy too many)
+
+--enum=rating:any:any,g,pg,pg13,r,r+,rx
+--collapse=rating:any,0:g,1:pg,2:pg13,3:r,4:r+,5:rx,6
+--map=rating:r
+
+# Start- and end-dates are too complex for mkelvis to handle right now.  It
+# would be less confusing if the user could specify metavars and help output.
+
+--list=columns:enum:type,episodes,score,total-members:type,episodes,score,start-date,end-date,total-members,rating
+--collapse=columns:type,a:episodes,b:score,c:start-date,d:end-date,e:total-members,f:rating,g
+--list-map=columns:c[]
+EOF
+
+genres='action,adventure,cars,comedy,dementia,demons,mystery,drama,ecchi,fantasy,game,hentai,historical,horror,kids,magic,martial-arts,mecha,music,parody,samurai,romance,school,sci-fi,shoujo,shoujo-ai,shounen,shounen-ai,space,sports,super-power,vampire,yaoi,yuri,harem,slice-of-life,supernatural,military,police,psychological'
+echo "--list=genres:enum::$genres"
+default_ifs=' 	
+'
+old_ifs="${IFS:-$default_ifs}"
+IFS=,
+i=1
+collapses='--collapse=genres'
+for genre in $genres; do
+	collapses="${collapses}:$genre,$i"
+	i="$(( $i + 1 ))"
+done
+IFS="$old_ifs"
+echo $collapses
+
+echo '--enum=genrefilter:include:include,exclude'
+echo '--collapse=genrefilter:include,0:exclude,1'
+echo '--map=genrefilter:gx'
+
+echo '--query-parameter=q'
