@@ -28,7 +28,7 @@ myanimelist.net/anime.php?
 --collapse=status:any,0:airing,1:finished,2:unaired,3
 --map=status:status
 
-# Producer is too complex for surfraw to handle (it has whitespace)
+# Producer is too complex for surfraw to handle (it has whitespace and there are wayy too many)
 
 --enum=rating:any:any,g,pg,pg13,r,r+,rx
 --collapse=rating:any,0:g,1:pg,2:pg13,3:r,4:r+,5:rx,6
