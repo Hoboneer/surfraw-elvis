@@ -25,5 +25,5 @@ www.youtube.com/results?
 --alias=shows:show:flag
 
 --collapse=type:all,:video,EgIQAQ%253D%253D:channel,EgIQAg%253D%253D:playlist,EgIQAw%253D%253D:movie,EgIQBA%253D%253D:show,EgIQBQ%253D%253D
---map=type:sp
+--map=type:sp:no
 --query-parameter=search_query
