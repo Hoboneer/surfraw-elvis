@@ -1,0 +1,36 @@
+www.studylink.govt.nz
+# The 'collection' and empty 'facetScope' params are important apparently.  The
+# website returns an empty page with no 'facetScope' and an error page with no
+# 'collection'.
+www.studylink.govt.nz/s/search.html?facetScope=&collection=msd-studylink-web&
+
+--enum=sort:relevance:relevance,title,reverse-title,url,reverse-url,shuffle
+--collapse=sort:relevance,:reverse-title,dtitle:reverse-url,durl
+--map=sort:sort
+
+# Operators
+--anything=all:
+--map=all:query_and
+
+--anything=phrase:
+--map=phrase:query_phrase
+--alias=exact:phrase:anything
+
+--anything=without:
+--map=without:query_not
+
+--anything=intitle:
+--map=intitle:meta_t
+
+--anything=indescription:
+--map=indescription:meta_c
+--alias=indesc:indescription:anything
+
+--enum=filetype:any:any,pdf,docx
+--collapse=filetype:any,
+--map=filetype:meta_f_sand
+
+--use-results-option
+--map=results:num_ranks
+
+--query-parameter=query
