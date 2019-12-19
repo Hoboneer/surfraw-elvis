@@ -1,3 +1,8 @@
 ${SURFRAW_fandomwiki_site}.fandom.com/
 ${SURFRAW_fandomwiki_site}.fandom.com/wiki/Special:Search?query=
 --anything=site:community
+
+# Typing `sr fandomwiki -site=yogscast` everytime is tedious even with completions.
+--flag=yogscast:site:yogscast
+--alias=yogs:yogscast:flag
+--alias=yog:yogscast:flag
