@@ -8,15 +8,19 @@ duckduckgo.com/${SURFRAW_ddg_site}/?
 --alias=j:javascript:flag
 # The normal site has no specific string in the URL.
 --collapse=site:normal,
+--describe=site:"Set which site to use; 'lite' and 'html' don't use javascript but lack some features"
 
 # "moderate" seems to be the default on the browser when no `kp` param present.
 --enum=safe:moderate:off,moderate,strict,on
 --collapse=safe:off,-2:moderate,-1:strict,on,1
 --map=safe:kp
+--describe=safe:"Set safe search filter; 'strict' and 'on' are synonymous"
 
+# I'm not sure if this works on text browsers.
 --enum=method:get:get,post
 --collapse=method:get,g:post,p
 --map=method:kg
+--describe=method:"Set search method; may not work on text browsers"
 
 --yes-no=redirect:no
 --flag=redirect:redirect:yes
@@ -30,5 +34,7 @@ duckduckgo.com/${SURFRAW_ddg_site}/?
 # the user sets their region in their config file anyway.
 --anything=region:wt-wt
 --map=region:kl
+# No protocol because `mkelvis` doesn't handle ':' characters as data--instead it dumbly splits arguments.
+--describe=region:'Set search region; See "duckduckgo.com/params" for more info'
 
 --query-parameter=q
