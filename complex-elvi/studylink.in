@@ -18,13 +18,16 @@ www.studylink.govt.nz/s/search.html?facetScope=&collection=msd-studylink-web&
 
 --anything=without:
 --map=without:query_not
+--metavar=without:words
 
 --anything=intitle:
 --map=intitle:meta_t
+--metavar=intitle:words
 
 --anything=indescription:
 --map=indescription:meta_c
 --alias=indesc:indescription:anything
+--metavar=indescription:words
 
 --enum=filetype:any:any,pdf,docx
 --collapse=filetype:any,
