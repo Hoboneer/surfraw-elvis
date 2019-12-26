@@ -37,4 +37,9 @@ duckduckgo.com/${SURFRAW_ddg_site}/?
 # No protocol because `mkelvis` doesn't handle ':' characters as data--instead it dumbly splits arguments.
 --describe=region:'Set search region; See "duckduckgo.com/params" for more info'
 
+# I can't tell if multiple filetypes at once are supported.
+--list=filetypes:enum::pdf,docx,xlsx,pptx,html
+--list-inline=filetypes:filetype
+--describe=filetypes:'Set file formats to search for'
+
 --query-parameter=q
