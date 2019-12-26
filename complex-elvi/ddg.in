@@ -42,4 +42,6 @@ duckduckgo.com/${SURFRAW_ddg_site}/?
 --list-inline=filetypes:filetype
 --describe=filetypes:'Set file formats to search for'
 
+--num-tabs=2
+
 --query-parameter=q

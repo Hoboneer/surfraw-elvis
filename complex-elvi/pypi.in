@@ -18,4 +18,6 @@ pypi.org/search/?
 --collapse=typing:any,:typed,Typing+%3A%3A+Typed
 --map=typing:c:no
 
+--num-tabs=2
+
 --query-parameter=q

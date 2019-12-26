@@ -11,4 +11,6 @@ gitlab.com/search?
 --anything=projectid:
 --map=projectid:project_id
 
+--num-tabs=2
+
 --query-parameter=search

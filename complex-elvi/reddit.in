@@ -17,4 +17,6 @@ www.reddit.com/search?
 # I don't know how the rest of the url parameters work nor whether they work in
 # a text browser.
 
+--num-tabs=2
+
 --query-parameter=q

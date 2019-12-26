@@ -26,4 +26,7 @@ www.youtube.com/results?
 
 --collapse=type:all,:video,EgIQAQ%253D%253D:channel,EgIQAg%253D%253D:playlist,EgIQAw%253D%253D:movie,EgIQBA%253D%253D:show,EgIQBQ%253D%253D
 --map=type:sp:no
+
+--num-tabs=2
+
 --query-parameter=search_query
