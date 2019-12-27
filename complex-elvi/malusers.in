@@ -1,0 +1,23 @@
+myanimelist.net/users.php
+myanimelist.net/users.php?
+--description='Advanced search for MyAnimeList users'
+
+--anything=location:
+--map=location:loc
+--describe=location:'Search for users in a specific location'
+
+--anything=minage:any
+--collapse=minage:any,
+--map=minage:agelow
+--describe=minage:"Search for users at least MINAGE years old; may be 'any'"
+
+--anything=maxage:any
+--collapse=maxage:any,
+--map=maxage:agehigh
+--describe=maxage:"Search for users at most MAXAGE years old; may be 'any'"
+
+--enum=gender:any:any,male,female,non-binary
+--collapse=gender:any,:male,1:female,2:non-binary,3
+--map=gender:g
+
+--query-parameter=q
