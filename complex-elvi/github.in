@@ -5,7 +5,7 @@ github.com/search?
 
 # There is no 'all' search type...
 --enum=search:repos:repos,code,commits,issues,packages,marketplace,topics,wikis,users
---collapse=search:repos,Repositories:code,Code:commits,Commits:issues,Issues:packages,RegistryPackages:marketplace,Marketplace:topics,Topics:wikis,Wikis:users,Users:
+--collapse=search:repos,Repositories:code,Code:commits,Commits:issues,Issues:packages,RegistryPackages:marketplace,Marketplace:topics,Topics:wikis,Wikis:users,Users
 --map=search:type
 --describe=search:'Limit search to CATEGORY'
 --metavar=search:category
