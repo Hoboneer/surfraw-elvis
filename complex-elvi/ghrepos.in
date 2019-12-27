@@ -1,0 +1,31 @@
+github.com
+github.com/search?type=Repositories
+--description='Search GitHub repositories'
+
+# No owners by default.
+--list=owners:anything:
+--list-inline=owners:user
+--describe=owners:'From these owners'
+
+# No repos by default.
+--list=repos:anything:
+--list-inline=repos:repo
+--describe=repos:'In these repositories'
+
+# Only popular languages for now.
+--enum=language:any:any,actionscript,c,c-sharp,c++,clojure,coffeescript,css,go,haskell,html,java,javascript,lua,matlab,objective-c,perl,php,python,r,ruby,scala,shell,swift,tex,vimscript
+--alias=l:language:enum
+--collapse=language:any,:actionscript,ActionScript:c,C:c-sharp,'C#':c++,C++:clojure,Clojure:coffeescript,CoffeeScript:css,CSS:go,Go:haskell,Haskell:html,HTML:java,Java:javascript,JavaScript:lua,Lua:matlab,MATLAB:objective-c,Objective-C:perl,Perl:php,PHP:python,Python:r,R:ruby,Ruby:scala,Scala:shell,Shell:tex,TeX:vimscript,'Vim script'
+--inline=language:language
+--describe=language:"Written in this language"
+
+--enum=forks:not:not,and,only
+# 'not' is default if not present in search.
+--collapse=forks:not,:and,true
+--inline=forks:fork
+--describe=forks:"Operator for whether to include forks"
+--metavar=forks:operator
+
+--num-tabs=2
+
+--query-parameter=q
