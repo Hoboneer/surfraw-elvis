@@ -11,6 +11,12 @@ gitlab.com/search?
 --anything=projectid:
 --map=projectid:project_id
 
+--enum=search:projects:projects,issues,merge-requests,milestones,users
+--collapse=search:merge-requests,merge_requests
+--map=search:scope
+--describe=search:'Limit search to CATEGORY'
+--metavar=search:category
+
 --num-tabs=2
 
 --query-parameter=search
