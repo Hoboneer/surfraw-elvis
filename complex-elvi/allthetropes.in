@@ -1,0 +1,8 @@
+allthetropes.org
+'allthetropes.org/w/index.php?title=Special%3ASearch&$(ok SURFRAW_allthetropes_direct && echo "go=Go" || echo "fulltext=Search")'
+--description='Search All The Tropes wiki'
+
+--yes-no=direct:yes
+--describe=direct:'Enter page immediately if query matches title'
+
+--query-parameter=search
