@@ -23,7 +23,7 @@ while read -r url; do
 		exit 1
 	fi
 	sites+=("$site")
-done <stackexchange-urls
+done <stackexchange-sites
 if [ "${#sites[@]}" -eq 0 ]; then
 	echo no sites found >&2
 	exit 1
