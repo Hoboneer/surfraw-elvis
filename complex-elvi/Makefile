@@ -48,3 +48,11 @@ uninstall:
 .PHONY: clean
 clean:
 	-rm -f -- $(wildcard *.elvis *.completion)
+
+# Clean non-elvis generator files
+.PHONY: clean-gen
+clean-gen:
+	-rm -f -- stackexchange-sites.html stackexchange-sites
+
+.PHONY: clean-all
+clean-all: clean clean-gen
