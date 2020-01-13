@@ -1,0 +1,115 @@
+#!/bin/bash
+# A more general stack{overflow,exchange} elvis.
+
+# Some effort towards compatibility with the original `stack` elvis has been
+# attempted, but the values valid in the old `stack`'s `-sort=` option but not
+# in this current one, will not be supported.
+
+# Reference: https://stackoverflow.com/help/searching
+
+# Categorise every site.
+declare -a sites special_sites
+declare -A suffixes
+while read -r url; do
+	if [[ "$url" =~ ^https://([[:alnum:]]+)\.stackexchange\.com ]]; then
+		site="${BASH_REMATCH[1]}"
+	elif [[ "$url" =~ ^https://([[:alnum:]]+)(\..+) ]]; then
+		site="${BASH_REMATCH[1]}"
+		suffix="${BASH_REMATCH[2]}"
+		special_sites+=("$site")
+		suffixes["$site"]="$suffix"
+	else
+		echo "could not figure out what the site is for '$url'" >&2
+		exit 1
+	fi
+	sites+=("$site")
+done <stackexchange-urls
+if [ "${#sites[@]}" -eq 0 ]; then
+	echo no sites found >&2
+	exit 1
+fi
+
+# Now print out the options to be passed to `mkelvis`.
+cat <<'EOF0'
+# Searching looks like it's uniform across all stackexchange sites.
+${SURFRAW_stack_site}
+${SURFRAW_stack_site}/search?
+--description='Search questions on Stack Overflow or a Stack Exchange site'
+
+EOF0
+IFS=,
+cat <<EOF1
+# There are a few special cases.  This assumes that there are at least 2.
+--enum=site:stackoverflow:${sites[*]}
+# No-op for special sites.  They will be handled later.
+--collapse=site:${special_sites[*]},\${SURFRAW_stack_site}:*,\${SURFRAW_stack_site}.stackexchange.com
+# Now append suffixes to special sites.
+--collapse=site:$(set -- "${special_sites[@]}"; echo -n "$1,$1${suffixes[$1]}"; shift; for site; do echo -n ":$site,$site${suffixes[$site]}"; done)
+--describe=site:"Limit search to SITE"
+
+# For compatibility with old \`stack\` elvis.
+--flag=unix:site:unix
+--alias=u:unix:flag
+
+EOF1
+IFS=' 	
+'
+cat <<'EOF2'
+--anything=author:
+--inline=author:user
+--describe=author:'Limit results to AUTHOR-posted questions'
+
+# Minimum number of X options.
+
+--anything=score:any
+--collapse=score:any,
+--inline=score:score
+--metavar=score:numrange
+--describe=score:"Filter by minimum score; 'any' is also valid"
+
+--anything=answers:any
+--collapse=answers:any,
+--inline=answers:answers
+--metavar=answers:numrange
+--describe=answers:"Filter by minimum number of answers; 'any' is also valid"
+
+# Boolean operators
+# It would be nice if `mkelvis` supported nullable options (e.g., -opt=any).
+
+--yes-no=hasaccepted:yes
+--inline=hasaccepted:hasaccepted
+--describe=hasaccepted:"Only return questions that have accepted answers"
+
+# The `is:` operator will not be supported.  This only searches questions.
+
+# Dates options
+
+--anything=created:
+--inline=created:created
+--metavar=created:daterange
+--describe=created:'Specify when posts are created (UTC)'
+
+--anything=lastactive:
+--inline=lastactive:lastactive
+--metavar=lastactive:daterange
+--describe=lastactive:'Specify for posts active in a time period (UTC)'
+
+# Standard options
+
+--enum=sort:relevance:relevance,newest,active,votes
+--map=sort:tab
+--metavar=sort:category
+--describe=sort:'Sort by CATEGORY'
+# For compatibility with old `stack` elvis.
+--alias=s:sort:enum
+
+# Only 15, 30, or 50 results are supported per page...
+--enum=results:15:15,30,50
+--metavar=results:num
+--describe=results:'Number of search results returned'
+--map=results:pagesize
+# For compatibility with old `stack` elvis.
+--alias=num:results:enum
+
+--query-parameter=q
+EOF2

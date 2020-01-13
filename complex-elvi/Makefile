@@ -12,6 +12,15 @@ elvi: $(OUTPUTS)
 .PHONY: completions
 completions: $(COMPLETIONS)
 
+stackexchange-sites.html:
+	wget --output-document $@ https://stackexchange.com/sites
+
+stackexchange-sites: stackexchange-sites.html
+	./get-stackexchange-urls.sh $< >$@
+
+stack.sh-in: stackexchange-sites
+	touch stack.sh-in
+
 # I'm not sure how to have a rule match with the basename of something
 # Line comments are permitted
 %.elvis: %.in
