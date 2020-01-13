@@ -111,5 +111,6 @@ cat <<'EOF2'
 # For compatibility with old `stack` elvis.
 --alias=num:results:enum
 
+--num-tabs=2
 --query-parameter=q
 EOF2
