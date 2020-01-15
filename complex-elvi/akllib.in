@@ -1,0 +1,90 @@
+# Auckland libraries advanced search
+www.aucklandlibraries.govt.nz
+'auckland.overdrive.com/search/title?$(case "$SURFRAW_akllib_availability" in (available) echo "showOnlyAvailable=true&";; (coming) echo "showOnlyPrerelease=true&";; (recommendable) echo "showAlsoRecommendable=true&";; esac)'
+--description='Search Auckland Libraries for books'
+
+--anything=author:
+--map=author:creator
+
+# TODO: Support filtering by subject.
+
+# Availability: all titles
+#https://auckland.overdrive.com/search/title?query=asd&maturityLevel=generalcontent&sortBy=newlyadded
+# Availability: available now
+#https://auckland.overdrive.com/search/title?query=asd&showOnlyAvailable=true&maturityLevel=generalcontent&sortBy=newlyadded
+# Availability: coming soon
+#https://auckland.overdrive.com/search/title?query=asd&showOnlyPrerelease=true&maturityLevel=generalcontent&sortBy=newlyadded
+# Availability: recommend to library
+#https://auckland.overdrive.com/search/title?query=asd&showAlsoRecommendable=true&maturityLevel=generalcontent&sortBy=releasedate
+--enum=availability:all:all,available,coming,recommendable
+
+# Audience: all
+#maturityLevel=
+# Audience: juvenile
+#maturityLevel=juvenile
+# Audience: young adult
+#maturityLevel=youngadult
+# Audience: general adult
+#maturityLevel=generalcontent
+# Audience: mature adult
+#maturityLevel=adultonly
+--enum=audience:all:all,juvenile,young-adult,general-adult,mature-adult
+--collapse=audience:all,:young-adult,youngadult:general-adult,generalcontent:mature-adult,adultonly
+--map=audience:maturityLevel
+
+# Date added: all
+#addedDate=
+# Date added: last 7 days
+#addedDate=days-0-7
+# Date added: last 14 days
+#addedDate=days-0-14
+# Date added: last 30 days
+#addedDate=days-0-30
+# Date added: last 3 months
+#addedDate=days-0-90
+# Date added: last 6 months
+#addedDate=days-0-180
+--enum=added:all:all,7days,14days,30days,3months,6months
+--collapse=added:all,:7days,days-0-7:14days,days-0-14:30days,days-0-30:3months,days-0-90:6months,days-0-180
+--map=added:addedDate
+--describe=added:'Filter by date added (last N)'
+
+# Formats: all
+#format=
+# Formats: all ebooks
+#format=ebook
+# Formats: all audiobooks
+#format=audiobook
+# Formats: overdrive read
+#format=ebook-overdrive
+# Formats: overdrive read-along
+#format=ebook-overdrive-readalong
+# Formats: epub ebook
+#format=ebook-epub-adobe
+# Formats: open epub book
+#format=ebook-epub-open
+# Formats: pdf ebook
+#format=ebook-pdf-adobe
+# Formats: overdrive listen audiobook
+#format=audiobook-overdrive
+# Formats: mp3 audiobook
+#format=audiobook-mp3
+# Formats: streaming video
+#format=video-streaming
+# Overdrive formats looks like they need DRM... no thanks.
+--enum=format:all:all,ebook,audiobook,overdrive-ebook,overdrive-readalong-ebook,epub,open-epub,pdf,overdrive-listen,mp3,stream
+--collapse=format:all,:overdrive-ebook,ebook-overdrive:overdrive-readalong-ebook,ebook-overdrive-readalong:epub,ebook-epub-adobe:open-epub,ebook-epub-open:pdf,ebook-pdf-adobe:overdrive-listen,audiobook-overdrive:mp3,audiobook-mp3:stream,video-streaming
+--map=format:format
+
+--use-language-option
+--map=language:language
+
+--anything=isbn:
+--map=isbn:isbn
+
+--enum=sort:relevance:relevance,global-popularity,library-popularity,release-date,date-added,title,author
+--collapse=sort:global-popularity,mostpopular:library-popularity,mostpopular-site:release-date,releasedate:date-added,newlyadded
+--map=sort:sortBy
+
+--num-tabs=2
+--query-parameter=query
