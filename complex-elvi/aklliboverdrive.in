@@ -1,7 +1,7 @@
 # Auckland libraries advanced search
-www.aucklandlibraries.govt.nz
-'auckland.overdrive.com/search/title?$(case "$SURFRAW_akllib_availability" in (available) echo "showOnlyAvailable=true&";; (coming) echo "showOnlyPrerelease=true&";; (recommendable) echo "showAlsoRecommendable=true&";; esac)'
---description='Search Auckland Libraries for books'
+auckland.overdrive.com
+'auckland.overdrive.com/search/title?$(case "$SURFRAW_aklliboverdrive_availability" in (available) echo "showOnlyAvailable=true&";; (coming) echo "showOnlyPrerelease=true&";; (recommendable) echo "showAlsoRecommendable=true&";; esac)'
+--description='Search Auckland Libraries for ebooks on OverDrive'
 
 --anything=author:
 --map=author:creator
@@ -86,5 +86,4 @@ www.aucklandlibraries.govt.nz
 --collapse=sort:global-popularity,mostpopular:library-popularity,mostpopular-site:release-date,releasedate:date-added,newlyadded
 --map=sort:sortBy
 
---num-tabs=2
 --query-parameter=query
