@@ -1,0 +1,32 @@
+# This website's search function doesn't seem to work well in text browsers...
+www.aucklandlibraries.govt.nz
+'discover.aucklandlibraries.govt.nz/iii/encore/search/C__S$(min="$SURFRAW_akllib_minyear"; max="$SURFRAW_akllib_maxyear"; test -n "$min$max" && w3_url_escape "y:[$min-$max] ")'
+# TODO: Add `-sort=` option.  This doesn't do what typical web searches do though--which is normally through url parameters.
+#       See the following examples for this monstrosity:
+# Search: "test"
+# Sorted by: "Relevance"
+#Directly from search: https://discover.aucklandlibraries.govt.nz/iii/encore/search/C__Stest__Orightresult__U?lang=eng&suite=def
+#Clicked on "Relevance": https://discover.aucklandlibraries.govt.nz/iii/encore/search/C__Stest__Orightresult__U__X0?lang=eng&suite=def
+# Search: "test"
+# Sorted by: "Date"
+#https://discover.aucklandlibraries.govt.nz/iii/encore/search/C__Stest__O-date__U__X0?lang=eng&suite=def
+# Search: "test"
+# Sorted by: "Title"
+#https://discover.aucklandlibraries.govt.nz/iii/encore/search/C__Stest__Otitle__U__X0?lang=eng&suite=def
+# Search: "test"
+# Sorted by: "Author"
+#https://discover.aucklandlibraries.govt.nz/iii/encore/search/C__Stest__Oauthor__U__X0?lang=eng&suite=def
+
+--anything=minyear:
+--anything=maxyear:
+
+# `mkelvis`'s --collapse option isn't general enough to allow these to be list options.
+--enum=format:any:any,archive,artwork,audio-cd,audio-tape,bluray,book,cd-rom,console-game,dvd,graphic-novel,kit,large-print,mp3,magazine,manuscript,map,microfilm,music-cd,music-lp,music-tape,newspaper,picture-book,printed-music,toy,puzzle,video,vox-audiobook,audiobook,ebook,eresource
+--collapse=format:any,:archive,b:artwork,k:audio-cd,i:audio-tape,h:bluray,1:book,a:cd-rom,m:console-game,d:dvd,g:graphic-novel,x:kit,o:large-print,l:mp3,2:magazine,s:manuscript,t:map,e:microfilm,w:music-cd,j:music-lp,q:music-tape,f:newspaper,n:picture-book,p:printed-music,c:toy,puzzle,r:video,v:vox-audiobook,3:audiobook,u:ebook,z:eresource,y
+--inline=format:f
+
+--enum=audience:any:any,adult,teen,child
+--collapse=audience:any,:adult,21:teen,22:child,14
+--inline=audience:c
+
+--num-tabs=2
