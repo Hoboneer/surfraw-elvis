@@ -5,4 +5,4 @@ myanimelist.net/${SURFRAW_myanimelist_search}?q=
 
 # All values are plural form for consistency.
 --enum=search:all:all,anime,manga,characters,people,users
---collapse=search:all,search/all:anime,manga,people,users,$SURFRAW_myanimelist_search.php:characters,character.php
+--collapse=search:all,search/all:anime,manga,people,users,$_.php:characters,character.php
