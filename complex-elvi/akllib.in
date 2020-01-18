@@ -1,21 +1,6 @@
 # This website's search function doesn't seem to work well in text browsers...
 www.aucklandlibraries.govt.nz
-'discover.aucklandlibraries.govt.nz/iii/encore/search/C__S$(min="$SURFRAW_akllib_minyear"; max="$SURFRAW_akllib_maxyear"; test -n "$min$max" && w3_url_escape "y:[$min-$max] ")'
-# TODO: Add `-sort=` option.  This doesn't do what typical web searches do though--which is normally through url parameters.
-#       See the following examples for this monstrosity:
-# Search: "test"
-# Sorted by: "Relevance"
-#Directly from search: https://discover.aucklandlibraries.govt.nz/iii/encore/search/C__Stest__Orightresult__U?lang=eng&suite=def
-#Clicked on "Relevance": https://discover.aucklandlibraries.govt.nz/iii/encore/search/C__Stest__Orightresult__U__X0?lang=eng&suite=def
-# Search: "test"
-# Sorted by: "Date"
-#https://discover.aucklandlibraries.govt.nz/iii/encore/search/C__Stest__O-date__U__X0?lang=eng&suite=def
-# Search: "test"
-# Sorted by: "Title"
-#https://discover.aucklandlibraries.govt.nz/iii/encore/search/C__Stest__Otitle__U__X0?lang=eng&suite=def
-# Search: "test"
-# Sorted by: "Author"
-#https://discover.aucklandlibraries.govt.nz/iii/encore/search/C__Stest__Oauthor__U__X0?lang=eng&suite=def
+'discover.aucklandlibraries.govt.nz/iii/encore/search/C__S${escaped_args}$(min="$SURFRAW_akllib_minyear"; max="$SURFRAW_akllib_maxyear"; test -n "$min$max" && w3_url_escape "y:[$min-$max]")__O${SURFRAW_akllib_sort}__U__X0'
 
 --anything=minyear:
 --anything=maxyear:
@@ -29,4 +14,8 @@ www.aucklandlibraries.govt.nz
 --collapse=audience:any,:adult,21:teen,22:child,14
 --inline=audience:c
 
+--enum=sort:relevance:relevance,date,title,author
+--collapse=sort:relevance,rightresult:date,-date
+
 --num-tabs=2
+--no-append-args
