@@ -1,5 +1,5 @@
 github.com
-github.com/search?type=Repositories
+github.com/search?type=Repositories&
 --description='Search GitHub repositories'
 
 # No owners by default.

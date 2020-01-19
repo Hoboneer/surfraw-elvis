@@ -1,5 +1,5 @@
 github.com
-github.com/search?type=Issues
+github.com/search?type=Issues&
 --description='Search GitHub issues'
 
 # No owners by default.
