@@ -1,0 +1,43 @@
+#!/bin/sh
+# A simple pirate bay elvis.
+
+types=pirate-types
+
+cat <<'EOF_header'
+# On empty search: Browse categories if any are selected.
+'thepiratebay.org/$([ -n "$SURFRAW_pirate_type" ] && echo "browse/$SURFRAW_pirate_type/0/$SURFRAW_pirate_sort/0")'
+'thepiratebay.org/search/$_/0/$SURFRAW_pirate_sort/${SURFRAW_pirate_type:-0}'
+--description='Search The Pirate Bay for torrents'
+
+EOF_header
+# The website allows multiple categories to be selected, but this is simpler for the user.
+cat <<EOF_types
+# FIXME: Figure out if 'none' should be a valid value.
+--enum=type:none:none,$(awk 'BEGIN {ORS=","} {print $1}' "$types" | sed 's/,$//')
+--collapse=type:none,:$(awk 'BEGIN {OFS=","; ORS=":"} {print $1, $2}' "$types" | sed 's/:$//')
+--describe=type:"Search for TYPE; if not 'none', then browse TYPE listings"
+
+EOF_types
+cat <<'EOF_sort'
+--enum=sort:seeders:type,name,date,user,size,seeders,leechers
+--collapse=sort:type,13:name,1:date,3:size,5:user,11:seeders,7:leechers,9
+--metavar=sort:property
+--describe=sort:'Sort by PROPERTY'
+
+EOF_sort
+cat <<'EOF_tail'
+--no-append-args
+--num-tabs=2
+EOF_tail
+# From surfraw-provided `piratebay` elvis: `sr piratebay -sort=$category test`, where category is field 1
+# all	https://thepiratebay.org/search/test/0/99/0
+# apps	https://thepiratebay.org/search/test/0/99/300
+# games	https://thepiratebay.org/search/test/0/99/400
+# music	https://thepiratebay.org/search/test/0/99/100
+# tv	https://thepiratebay.org/search/test/0/99/205
+# movies	https://thepiratebay.org/search/test/0/99/201
+# flac	https://thepiratebay.org/search/test/0/99/104
+# books	https://thepiratebay.org/search/test/0/99/102
+# dvd	https://thepiratebay.org/search/test/0/99/202
+# hrm	https://thepiratebay.org/search/test/0/99/207
+# hrt	https://thepiratebay.org/search/test/0/99/208

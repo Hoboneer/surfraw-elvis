@@ -1,0 +1,57 @@
+# Valid types for `pirate` elvis.
+# Sorted automatically when building.
+# Fields are separated by blanks.
+all	0
+
+# Audio
+audio	100
+audio-music	101
+audio-books	102
+audio-clips	103
+audio-flac	104
+audio-other	199
+
+# Video
+video	200
+video-movies	201
+video-movies-dvdr	202
+video-music	203
+video-clips	204
+video-tv-shows	205
+video-handheld	206
+video-movies-hd	207
+video-tv-shows-hd	208
+video-3d	209
+video-other	299
+
+# Applications
+apps	300
+apps-windows	301
+apps-mac	302
+apps-unix	303
+apps-handheld	304
+apps-ios	305
+apps-android	306
+apps-other	399
+
+# Games
+games	400
+games-pc	401
+games-mac	402
+games-psx	403
+games-xbox360	404
+games-wii	405
+games-handheld	406
+games-ios	407
+games-android	408
+games-other	499
+
+# Other
+other	600
+other-ebooks	601
+other-comics	602
+other-pictures	603
+other-covers	604
+other-physibles	605
+other-other	699
+

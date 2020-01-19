@@ -12,6 +12,8 @@ elvi: $(OUTPUTS)
 .PHONY: completions
 completions: $(COMPLETIONS)
 
+# `stack` elvis:
+
 stackexchange-sites.html:
 	wget --output-document $@ https://stackexchange.com/sites
 
@@ -20,6 +22,16 @@ stackexchange-sites: stackexchange-sites.html
 
 stack.sh-in: stackexchange-sites
 	touch stack.sh-in
+
+# `pirate` elvis:
+
+pirate-types: pirate-types-in
+	grep -v '^[[:space:]]*\#' $< | tr -s '\n' | sort -n -k 2 >$@
+
+pirate.sh-in: pirate-types
+	touch $@
+
+# General rules:
 
 # I'm not sure how to have a rule match with the basename of something
 # Line comments are permitted
