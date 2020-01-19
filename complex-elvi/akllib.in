@@ -1,6 +1,7 @@
 # This website's search function doesn't seem to work well in text browsers...
 www.aucklandlibraries.govt.nz
 'discover.aucklandlibraries.govt.nz/iii/encore/search/C__S$_$(min="$SURFRAW_akllib_minyear"; max="$SURFRAW_akllib_maxyear"; test -n "$min$max" && w3_url_escape "y:[$min-$max]")__O${SURFRAW_akllib_sort}__U__X0'
+--description="Search Auckland Libraries' catalogue"
 
 --anything=minyear:
 --anything=maxyear:
