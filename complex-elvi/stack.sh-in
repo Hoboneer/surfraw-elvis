@@ -44,7 +44,12 @@ cat <<EOF1
 # No-op for special sites.  They will be handled later.
 --collapse=site:${special_sites[*]},\$_:*,\$_.stackexchange.com
 # Now append suffixes to special sites.
---collapse=site:$(set -- "${special_sites[@]}"; echo -n "$1,$1${suffixes[$1]}"; shift; for site; do echo -n ":$site,$site${suffixes[$site]}"; done)
+--collapse=site:$(for dup_suffix in "${suffixes[@]}"; do echo "$dup_suffix"; done | sort | uniq |
+	while read suffix; do
+		for site in "${special_sites[@]}"; do
+			[ "$suffix" = "${suffixes[$site]}" ] && echo "$site"
+		done | awk -v suffix="$suffix" 'BEGIN{ORS=","}{print $1}END{ORS=":"; print "$_" suffix}'
+	done | sed 's/:$//')
 --describe=site:"Limit search to SITE"
 
 # For compatibility with old \`stack\` elvis.
