@@ -42,7 +42,7 @@ cat <<EOF1
 # There are a few special cases.  This assumes that there are at least 2.
 --enum=site:stackoverflow:${sites[*]}
 # No-op for special sites.  They will be handled later.
---collapse=site:${special_sites[*]},\${SURFRAW_stack_site}:*,\${SURFRAW_stack_site}.stackexchange.com
+--collapse=site:${special_sites[*]},\$_:*,\$_.stackexchange.com
 # Now append suffixes to special sites.
 --collapse=site:$(set -- "${special_sites[@]}"; echo -n "$1,$1${suffixes[$1]}"; shift; for site; do echo -n ":$site,$site${suffixes[$site]}"; done)
 --describe=site:"Limit search to SITE"
