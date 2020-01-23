@@ -64,7 +64,7 @@ clean:
 # Clean non-elvis generator files
 .PHONY: clean-gen
 clean-gen:
-	-rm -f -- stackexchange-sites.html stackexchange-sites
+	-rm -f -- stackexchange-sites.html stackexchange-sites pirate-types
 
 .PHONY: clean-all
 clean-all: clean clean-gen
