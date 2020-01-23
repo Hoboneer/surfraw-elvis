@@ -17,6 +17,7 @@ Nothing in addition to the general requirements.
 ### Complex elvi (i.e., elvi found under complex-elvi/)
 
 * GNU Bash (a few elvi use bash as the interpreter for their `.sh-in` file)
+* GNU Wget
 * HTML Tidy
 * HTML-XML-utils
 
