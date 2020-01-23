@@ -18,7 +18,7 @@ stackexchange-sites.html:
 	wget --output-document $@ https://stackexchange.com/sites
 
 stackexchange-sites: stackexchange-sites.html
-	./get-stackexchange-urls.sh $< >$@
+	tidy -q -asxml 2>/dev/null $< | hxselect 'div.grid-view-container' | hxselect -s '\n' -c 'a::attr(href)' >$@
 
 stack.sh-in: stackexchange-sites
 	touch stack.sh-in
