@@ -9,6 +9,7 @@ These are some elvi for sites I find interesting and/or useful.
 * GNU Make
 * POSIX-compliant shell and utilities (e.g., `grep`, `tr`, and friends)
 * surfraw-tools (from [one of my repos](https://github.com/hoboneer/surfraw-elvis-generator))
+* surfraw (required for running the generated elvi, but not for building)
 
 ### Simple elvi (i.e., elvi found under simple-elvi/)
 
