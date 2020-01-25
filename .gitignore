@@ -1,6 +1,4 @@
 # Generated files
 *.elvis
 *.completion
-gen-data/stackexchange-sites
-gen-data/stackexchange-sites.html
-gen-data/pirate-types
+gen-data/*.gen

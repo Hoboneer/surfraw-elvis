@@ -21,21 +21,21 @@ completions: $(COMPLETIONS)
 
 # `stack` elvis:
 
-$(GEN_DATA_DIR)/stackexchange-sites.html:
 	wget --output-document $@ https://stackexchange.com/sites
+$(GEN_DATA_DIR)/stackexchange-sites.html.gen:
 
-$(GEN_DATA_DIR)/stackexchange-sites: $(GEN_DATA_DIR)/stackexchange-sites.html
+$(GEN_DATA_DIR)/stackexchange-sites.gen: $(GEN_DATA_DIR)/stackexchange-sites.html.gen
 	tidy -q -asxml 2>/dev/null $< | hxselect 'div.grid-view-container' | hxselect -s '\n' -c 'a::attr(href)' >$@
 
-$(ELVI_DIR)/stack.sh-in: $(GEN_DATA_DIR)/stackexchange-sites
+$(ELVI_DIR)/stack.sh-in: $(GEN_DATA_DIR)/stackexchange-sites.gen
 	touch $@
 
 # `pirate` elvis:
 
-$(GEN_DATA_DIR)/pirate-types: $(GEN_DATA_DIR)/pirate-types-in
+$(GEN_DATA_DIR)/pirate-types.gen: $(GEN_DATA_DIR)/pirate-types-in
 	grep -v '^[[:space:]]*\#' $< | tr -s '\n' | sort -n -k 2 >$@
 
-$(ELVI_DIR)/pirate.sh-in: $(GEN_DATA_DIR)/pirate-types
+$(ELVI_DIR)/pirate.sh-in: $(GEN_DATA_DIR)/pirate-types.gen
 	touch $@
 
 # General rules:
@@ -73,7 +73,7 @@ clean:
 # Clean non-elvis generator files
 .PHONY: clean-gen
 clean-gen:
-	-rm -f -- $(addprefix $(GEN_DATA_DIR)/, stackexchange-sites.html stackexchange-sites pirate-types)
+	-rm -f -- $(wildcard $(GEN_DATA_DIR)/*.gen)
 
 .PHONY: clean-all
 clean-all: clean clean-gen
