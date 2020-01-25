@@ -21,8 +21,8 @@ completions: $(COMPLETIONS)
 
 # `stack` elvis:
 
-	wget --output-document $@ https://stackexchange.com/sites
 $(GEN_DATA_DIR)/stackexchange-sites.html.gen:
+	wget --no-verbose --output-document $@ https://stackexchange.com/sites
 
 $(GEN_DATA_DIR)/stackexchange-sites.gen: $(GEN_DATA_DIR)/stackexchange-sites.html.gen
 	tidy -q -asxml 2>/dev/null $< | hxselect 'div.grid-view-container' | hxselect -s '\n' -c 'a::attr(href)' >$@
