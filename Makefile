@@ -58,13 +58,24 @@ $(ELVI_DIR)/%.completion: $(ELVI_DIR)/%.sh-in
 	env GEN_DATA_DIR='$(GEN_DATA_DIR)' ./$< | grep -v '^[[:space:]]*\#' | xargs mkelviscomps $(notdir $(basename $@))
 	mv $(notdir $@) $@
 
+# For installing
+LOCAL_ELVI_DIR := $(XDG_CONFIG_HOME)/surfraw/elvi
+
+# TODO: Install them in one go (remove suffixes....)
 .PHONY: install
 install:
-	./install.sh $(OUTPUTS)
+	install -D -t $(LOCAL_ELVI_DIR) -m 755 -- $(OUTPUTS)
+	@# Perl's `rename` command
+	rename 's/\b\.elvis$$//' -- $(strip $(foreach elvis, $(OUTPUTS), $(LOCAL_ELVI_DIR)/$(notdir $(elvis))))
 
 .PHONY: uninstall
-uninstall:
-	./install.sh -u $(OUTPUTS)
+uninstall: uninstall-partial
+	-rm -f -- $(strip $(foreach elvis, $(OUTPUTS), $(LOCAL_ELVI_DIR)/$(notdir $(basename $(elvis)))))
+
+# Delete partially installed elvi as well.
+.PHONY: uninstall-partial
+uninstall-partial:
+	-rm -f -- $(strip $(foreach elvis, $(OUTPUTS), $(LOCAL_ELVI_DIR)/$(notdir $(elvis))))
 
 .PHONY: clean
 clean:

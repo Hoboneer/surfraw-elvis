@@ -10,6 +10,7 @@ These are some elvi for sites I find interesting and/or useful.
 * POSIX-compliant shell and utilities (e.g., `grep`, `tr`, and friends)
 * surfraw-tools (from [one of my repos](https://github.com/hoboneer/surfraw-elvis-generator))
 * surfraw (required for running the generated elvi, but not for building)
+* `rename` command from Perl (for installing)
 
 ### Additional dependencies for more complex elvi
 
@@ -31,6 +32,11 @@ elvi/.
 Copy (or delete) elvi to ~/.config/surfraw/elvi.  Fails if an elvis may clobber
 one already in the directory to install elvi.  Run `make uninstall install` if
 you don't care about clobbering (or you are just reinstalling).
+
+    $ make uninstall-partial
+
+Delete partially-installed elvi (i.e., elvi installed locally but still have a
+`.elvis` extension).  This runs at the same time as `make uninstall`.
 
     $ make elvi  # or make completions
 
