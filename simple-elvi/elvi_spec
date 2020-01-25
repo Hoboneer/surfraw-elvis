@@ -1,3 +1,0 @@
-subsearch www.reddit.com www.reddit.com/subreddits/search?q= --description='Search for a subreddit'
-subreddit www.reddit.com www.reddit.com/r/ --description='Visit a subreddit'
-azlyrics www.azlyrics.com search.azlyrics.com/search.php?q= --description='Search AZLyrics for song lyrics by title or artist'

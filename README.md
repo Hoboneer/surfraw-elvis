@@ -11,11 +11,7 @@ These are some elvi for sites I find interesting and/or useful.
 * surfraw-tools (from [one of my repos](https://github.com/hoboneer/surfraw-elvis-generator))
 * surfraw (required for running the generated elvi, but not for building)
 
-### Simple elvi (i.e., elvi found under simple-elvi/)
-
-Nothing in addition to the general requirements.
-
-### Complex elvi (i.e., elvi found under complex-elvi/)
+### Additional dependencies for more complex elvi
 
 * GNU Bash (a few elvi use bash as the interpreter for their `.sh-in` file)
 * GNU Wget
@@ -26,35 +22,29 @@ Nothing in addition to the general requirements.
 
     $ make
 
-Generate all elvi (simple and complex; `.elvis` extension) as well as their
-completions (`.completion` extension).  Also works in the simple- and
-complex-elvi directories.
+Generate all elvi (`.elvis` extension) as well as their completions
+(`.completion` extension).  Generated elvi and completions will be placed in
+elvi/.
 
     $ make install  # or make uninstall
 
-Copy (or delete) elvi to ~/.config/surfraw/elvi.  Fails if an elvis may
-clobber one already in the directory to install elvi.  Run `make uninstall
-install` if you don't care about clobbering (or you are just reinstalling).
-Works in repo root, or in the simple- or complex-elvi drectories.
+Copy (or delete) elvi to ~/.config/surfraw/elvi.  Fails if an elvis may clobber
+one already in the directory to install elvi.  Run `make uninstall install` if
+you don't care about clobbering (or you are just reinstalling).
 
     $ make elvi  # or make completions
 
-In repo root, or in the simple- or complex-elvi directories, just generate
-elvi or their completions.
-
-    $ make simple  # or make complex
-
-Shorthand for running a plain `make` invocation in either directory.
+Just generate elvi or their completions.
 
     $ make clean
 
 Clean all elvi and completions.
 
-    $ make clean-gen  # under complex-elvi/
+    $ make clean-gen
 
 Remove generated, non-elvi files.
 
-    $ make clean-all  # under complex-elvi/
+    $ make clean-all
 
 An alias for `make clean clean-gen`.
 
@@ -62,8 +52,9 @@ An alias for `make clean clean-gen`.
 
 ### Simple elvi
 
-These are elvi that take no options and serve a similar function as surfraw
-bookmarks with embedded "%s".
+Some elvi are simpler than others, taking ~3 lines in their `.in` file.  These
+are elvi that take no options and serve a similar function as surfraw bookmarks
+with embedded "%s".
 
 ### Complex elvi
 
@@ -72,7 +63,7 @@ other elvi (e.g., `stack` downloads the list of stackexchange sites and uses
 it to populate its enum `-site=` option).  May run arbitrary code when
 building with elvi using an `.sh-in` file.
 
-### Manual elvi (i.e., elvi found under manual-elvi/)
+### Manual elvi
 
 These do not need building as they are written manually (hence the name).
 Note: These are not installed by `make install`.
