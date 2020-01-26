@@ -1,0 +1,28 @@
+www.mangaupdates.com/series.html
+www.mangaupdates.com/series.html?
+--describe='Search for series on Baka-Updates Manga'
+
+# 'relevance' isn't an actual value shown on the webpage, but seems to be the default.
+--enum=sort:relevance:relevance,title,year,rating
+--collapse=sort:relevance,
+--map=sort:orderby
+--metavar=sort:category
+--describe=sort:'Sort by CATEGORY'
+
+--enum=display:list:list,boxes
+--collapse=display:boxes,
+--map=display:display
+--describe=display:'Show results as DISPLAY'
+
+--enum=search:title:title,description
+--map=search:stype
+--metavar=search:field
+--describe=search:'Search for FIELD'
+
+# Site does not support arbitrary number of results per page.
+--enum=results:25:5,10,15,25,30,40,50,75,100
+--map=results:perpage
+--metavar=results:num
+--describe=results:'Number of search results returned'
+
+--query-parameter=search
