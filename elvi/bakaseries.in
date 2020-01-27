@@ -1,6 +1,6 @@
 www.mangaupdates.com/series.html
 www.mangaupdates.com/series.html?
---describe='Search for series on Baka-Updates Manga'
+--description='Search for series on Baka-Updates Manga'
 
 # 'relevance' isn't an actual value shown on the webpage, but seems to be the default.
 --enum=sort:relevance:relevance,title,year,rating
