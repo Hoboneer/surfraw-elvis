@@ -1,0 +1,91 @@
+#!/bin/bash
+cat <<'EOF_header'
+nyaa.si
+nyaa.si/?
+--description='Search Nyaa for torrents'
+
+EOF_header
+cat <<'EOF_filter'
+--enum=filter:trusted:none,no-remakes,trusted
+--collapse=filter:none,0:no-remakes,1:trusted,2
+--map=filter:f
+
+EOF_filter
+
+# Generate `search` enum lines
+build_opt ()
+{
+	local prefix="$1"; shift
+	local map_prefix="$1"; shift
+	local i=0
+	local cur_prefix category
+	OUTPUT_ENUM=''
+	OUTPUT_COLLAPSE=''
+	for category in "$@"; do
+		if [ -z "$category" ]; then
+			cur_prefix="$(echo "$prefix" | sed 's/-$//')"
+		else
+			cur_prefix="$prefix"
+		fi
+		OUTPUT_ENUM="$OUTPUT_ENUM,$cur_prefix$category"
+		OUTPUT_COLLAPSE="$OUTPUT_COLLAPSE:$cur_prefix$category,$map_prefix$i"
+		i="$(( i + 1 ))"
+	done
+}
+
+search_enum='--enum=search:all:all'
+search_collapse='--collapse=search:all,0_0'
+# Anime
+build_opt anime- 1_ '' amv english non-english raw
+search_enum="$search_enum$OUTPUT_ENUM"
+search_collapse="$search_collapse$OUTPUT_COLLAPSE"
+# Audio
+build_opt audio- 2_ '' lossless lossy
+search_enum="$search_enum$OUTPUT_ENUM"
+search_collapse="$search_collapse$OUTPUT_COLLAPSE"
+# Literature
+build_opt lit- 3_ '' english non-english raw
+search_enum="$search_enum$OUTPUT_ENUM"
+search_collapse="$search_collapse$OUTPUT_COLLAPSE"
+# Live action
+build_opt live-action- 4_ '' english promo non-english raw
+search_enum="$search_enum$OUTPUT_ENUM"
+search_collapse="$search_collapse$OUTPUT_COLLAPSE"
+# Pictures
+build_opt pics- 5_ '' graphics photos
+search_enum="$search_enum$OUTPUT_ENUM"
+search_collapse="$search_collapse$OUTPUT_COLLAPSE"
+# Software
+build_opt software- 6_ '' apps games
+search_enum="$search_enum$OUTPUT_ENUM"
+search_collapse="$search_collapse$OUTPUT_COLLAPSE"
+
+echo "$search_enum"
+echo "$search_collapse"
+echo '--map=search:c'
+echo '--metavar=search:category'
+echo '--describe=search:"Limit search to CATEGORY"'
+echo
+
+cat <<'EOF_sort'
+--enum=sort:seeders:comments,size,date,seeders,leechers,downloads
+--collapse=sort:date,id
+--map=sort:s
+--metavar=sort:property
+--describe=sort:'Sort by PROPERTY'
+EOF_sort
+
+cat <<'EOF_sortorder'
+--enum=sortorder:descending:ascending,descending
+--collapse=sortorder:ascending,asc:descending,desc
+--map=sortorder:o
+--metavar=sortorder:order
+
+--flag=desc:sortorder:descending
+--flag=asc:sortorder:ascending
+
+EOF_sortorder
+cat <<'EOF_tail'
+--query-parameter=q
+--num-tabs=2
+EOF_tail
