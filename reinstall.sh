@@ -1,8 +1,6 @@
 #!/bin/sh
 
-PKG_MANAGER_CMD="${PKG_MANAGER_CMD:-pipsi}"
-UNINSTALL_CMD="$PKG_MANAGER_CMD uninstall"
-INSTALL_CMD="$PKG_MANAGER_CMD install"
+PKG_MANAGER_CMD="${PKG_MANAGER_CMD:-pipx}"
 
-yes | $UNINSTALL_CMD surfraw-tools
-$INSTALL_CMD git+git://github.com/hoboneer/surfraw-elvis-generator.git#egg=surfraw_tools
+yes | $PKG_MANAGER_CMD ${UNINSTALL_CMD:-uninstall} surfraw-tools || echo not installed... continuing anyway
+$PKG_MANAGER_CMD ${INSTALL_CMD:-install --spec} git+https://github.com/hoboneer/surfraw-elvis-generator surfraw-tools
