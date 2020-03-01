@@ -59,6 +59,7 @@ $(ELVI_DIR)/%.completion: $(ELVI_DIR)/%.sh-in
 	mv $(notdir $@) $@
 
 # For installing
+XDG_CONFIG_HOME ?= $(HOME)/.config
 LOCAL_ELVI_DIR := $(XDG_CONFIG_HOME)/surfraw/elvi
 
 # TODO: Install them in one go (remove suffixes....)
