@@ -4,10 +4,10 @@ num_arg_opts=0
 num_flag_opts=0
 IFS=:
 while read elvis opts; do
-	IFS=' '
 	clean_elvis_name="$(basename -s .elvis "$elvis")"
 	uses_type_opt=no
 	uses_search_opt=no
+	IFS=' '
 	for opt_with_aliases in $opts; do
 		IFS=,
 		for opt in $opt_with_aliases; do
