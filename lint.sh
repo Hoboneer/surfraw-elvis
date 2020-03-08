@@ -26,7 +26,7 @@ while read elvis opts; do
 	done
 	case "$uses_type_opt:$uses_search_opt" in
 		yes:no)
-			printf "warning: elvis '%s' has a -type= option but no -search= option\n" "$clean_elvis_name"
+			printf "warning: elvis '%s' has a -type= option; consider renaming to -search=\n" "$clean_elvis_name"
 			;;
 	esac
 	IFS=:
