@@ -1,9 +1,4 @@
-# Directory for:
-#   1. Input files for elvi (and their completions)
-#   2. Output elvi and completions
-ELVI_DIR := elvi
-# Directory for non-elvi-input data files needed to build
-GEN_DATA_DIR := gen-data
+include env-vars
 
 OBJECTS := $(wildcard $(ELVI_DIR)/*.in $(ELVI_DIR)/*.sh-in)
 OUTPUTS := $(OBJECTS:.in=.elvis)
@@ -51,7 +46,7 @@ $(ELVI_DIR)/%.elvis: $(ELVI_DIR)/%.in
 	mv $(notdir $(basename $@)) $@
 
 $(ELVI_DIR)/%.elvis: $(ELVI_DIR)/%.sh-in
-	env GEN_DATA_DIR='$(GEN_DATA_DIR)' ./$< | grep -v '^[[:space:]]*\#' | xargs mkelvis $(notdir $(basename $@))
+	./$< | grep -v '^[[:space:]]*\#' | xargs mkelvis $(notdir $(basename $@))
 	mv $(notdir $(basename $@)) $@
 
 $(ELVI_DIR)/%.completion: $(ELVI_DIR)/%.in
@@ -59,7 +54,7 @@ $(ELVI_DIR)/%.completion: $(ELVI_DIR)/%.in
 	mv $(notdir $@) $@
 
 $(ELVI_DIR)/%.completion: $(ELVI_DIR)/%.sh-in
-	env GEN_DATA_DIR='$(GEN_DATA_DIR)' ./$< | grep -v '^[[:space:]]*\#' | xargs mkelviscomps $(notdir $(basename $@))
+	./$< | grep -v '^[[:space:]]*\#' | xargs mkelviscomps $(notdir $(basename $@))
 	mv $(notdir $@) $@
 
 # For installing
