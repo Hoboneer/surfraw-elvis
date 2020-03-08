@@ -8,7 +8,6 @@ while read elvis opts; do
 	clean_elvis_name="$(basename -s .elvis "$elvis")"
 	uses_type_opt=no
 	uses_search_opt=no
-	listname=''
 	for opt_with_aliases in $opts; do
 		IFS=,
 		for opt in $opt_with_aliases; do
