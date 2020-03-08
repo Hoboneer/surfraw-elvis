@@ -19,6 +19,10 @@ elvi: $(OUTPUTS)
 .PHONY: completions
 completions: $(COMPLETIONS)
 
+.PHONY: check
+check:
+	./opts.sh | ./lint.sh
+
 # `stack` elvis:
 
 $(GEN_DATA_DIR)/stackexchange-sites.html.gen:
