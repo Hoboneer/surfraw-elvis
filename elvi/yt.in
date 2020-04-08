@@ -3,29 +3,33 @@ www.youtube.com
 www.youtube.com/results?
 --description='Search YouTube'
 # Singular form to be consistent with youtube's filters UI.
---enum=type:all:all,video,channel,playlist,movie,show
+--enum=search:all:all,video,channel,playlist,movie,show
+# Don't break existing scripts.
+--alias=type:search:enum
+--describe=search:'Limit search to TYPE'
+--metavar=search:type
 
 # Plural and singular forms to allow for easy use and remembering options.
---flag=all:type:all
+--flag=all:search:all
 
---flag=video:type:video
+--flag=video:search:video
 --alias=videos:video:flag
 --alias=vid:video:flag
 
---flag=channel:type:channel
+--flag=channel:search:channel
 --alias=channels:channel:flag
 
---flag=playlist:type:playlist
+--flag=playlist:search:playlist
 --alias=playlists:playlist:flag
 
---flag=movie:type:movie
+--flag=movie:search:movie
 --alias=movies:movie:flag
 
---flag=show:type:show
+--flag=show:search:show
 --alias=shows:show:flag
 
---collapse=type:all,:video,EgIQAQ%253D%253D:channel,EgIQAg%253D%253D:playlist,EgIQAw%253D%253D:movie,EgIQBA%253D%253D:show,EgIQBQ%253D%253D
---map=type:sp:no
+--collapse=search:all,:video,EgIQAQ%253D%253D:channel,EgIQAg%253D%253D:playlist,EgIQAw%253D%253D:movie,EgIQBA%253D%253D:show,EgIQBQ%253D%253D
+--map=search:sp:no
 
 --num-tabs=2
 

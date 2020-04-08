@@ -5,17 +5,18 @@ types="$GEN_DATA_DIR/pirate-types.gen"
 
 cat <<'EOF_header'
 # On empty search: Browse categories if any are selected.
-'thepiratebay.org/$([ -n "$SURFRAW_pirate_type" ] && echo "browse/$SURFRAW_pirate_type/0/$SURFRAW_pirate_sort/0")'
-'thepiratebay.org/search/$_/0/$SURFRAW_pirate_sort/${SURFRAW_pirate_type:-0}'
+'thepiratebay.org/$([ -n "$SURFRAW_pirate_search" ] && echo "browse/$SURFRAW_pirate_search/0/$SURFRAW_pirate_sort/0")'
+'thepiratebay.org/search/$_/0/$SURFRAW_pirate_sort/${SURFRAW_pirate_search:-0}'
 --description='Search The Pirate Bay for torrents'
 
 EOF_header
 # The website allows multiple categories to be selected, but this is simpler for the user.
 cat <<EOF_types
 # FIXME: Figure out if 'none' should be a valid value.
---enum=type:none:none,$(awk 'BEGIN {ORS=","} {print $1}' "$types" | sed 's/,$//')
---collapse=type:none,:$(awk 'BEGIN {OFS=","; ORS=":"} {print $1, $2}' "$types" | sed 's/:$//')
---describe=type:"Search for TYPE; if not 'none', then browse TYPE listings"
+--enum=search:none:none,$(awk 'BEGIN {ORS=","} {print $1}' "$types" | sed 's/,$//')
+--collapse=search:none,:$(awk 'BEGIN {OFS=","; ORS=":"} {print $1, $2}' "$types" | sed 's/:$//')
+--describe=search:"Search for TYPE; if not 'none', then browse TYPE listings"
+--metavar=search:type
 
 EOF_types
 cat <<'EOF_sort'

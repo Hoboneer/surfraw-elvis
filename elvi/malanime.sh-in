@@ -4,9 +4,11 @@ myanimelist.net/anime.php
 myanimelist.net/anime.php?
 --description='Advanced search for MyAnimeList anime'
 
---enum=type:tv:any,tv,ova,movie,special,ona,music
---collapse=type:any,0:tv,1:ova,2:movie,3:special,4:ona,5:music,6
---map=type:type
+--enum=search:tv:any,tv,ova,movie,special,ona,music
+--collapse=search:any,0:tv,1:ova,2:movie,3:special,4:ona,5:music,6
+--map=search:type
+--describe=search:'Limit search to TYPE'
+--metavar=search:type
 
 --enum=score:any:any,1,2,3,4,5,6,7,8,9,10
 --collapse=score:any,0
