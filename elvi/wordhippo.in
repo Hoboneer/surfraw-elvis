@@ -1,0 +1,8 @@
+www.wordhippo.com
+www.wordhippo.com/what-is/$SURFRAW_wordhippo_search/$_.html
+--description='Search WordHippo for language services'
+
+--enum=search:definitions:definitions,synonyms,antonyms,rhymes,sentences
+--collapse=search:definitions,the-meaning-of-the-word:synonyms,another-word-for:antonyms,the-opposite-of:rhymes,words-that-rhyme-with:sentences,sentences-with-the-word
+
+--no-append-args

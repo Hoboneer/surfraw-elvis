@@ -1,0 +1,8 @@
+www.wordhippo.com
+www.wordhippo.com/what-is/$SURFRAW_wordforms_search/$_.html
+--description='Search WordHippo for word forms'
+
+--enum=search:plural:plural,singular,past-tense,present-tense,verb,adjective,adverb,noun
+--collapse=search:plural,singular,past-tense,present-tense,the-$_-of:verb,adjective,adverb,noun,the-$_-for
+
+--no-append-args
