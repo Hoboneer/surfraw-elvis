@@ -58,6 +58,7 @@ for genre in $genres; do
 done
 IFS="$old_ifs"
 echo $collapses
+echo '--list-map=genres:genre[]'
 
 echo '--enum=genrefilter:include:include,exclude'
 echo '--collapse=genrefilter:include,0:exclude,1'
