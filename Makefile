@@ -18,6 +18,17 @@ completions: $(COMPLETIONS)
 check:
 	./opts.sh | ./lint.sh
 
+# `wordtranslate` elvis:
+
+$(GEN_DATA_DIR)/wordhippo.html.gen:
+	wget --no-verbose --output-document $@ https://www.wordhippo.com
+
+$(GEN_DATA_DIR)/wordhippo-languages.gen: $(GEN_DATA_DIR)/wordhippo.html.gen
+	tidy -q -asxml 2>/dev/null $< | hxselect -s '\n' -c '#translateLanguage > option::attr(value)' | sort >$@
+
+$(ELVI_DIR)/wordtranslate.sh-in: $(GEN_DATA_DIR)/wordhippo-languages.gen
+	touch $@
+
 # `stack` elvis:
 
 $(GEN_DATA_DIR)/stackexchange-sites.html.gen:

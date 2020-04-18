@@ -1,0 +1,16 @@
+#!/bin/sh
+cat <<'EOF'
+www.wordhippo.com
+'www.wordhippo.com/what-is/$(case "$SURFRAW_wordtranslate_direction" in (to-english) echo "the-meaning-of/$SURFRAW_wordtranslate_language-word-$_.html";; (from-english) echo "the/$SURFRAW_wordtranslate_language-word-for-$_.html";; esac)'
+--description='Translate to and from English with WordHippo'
+
+EOF
+file="$GEN_DATA_DIR/wordhippo-languages.gen"
+cat <<EOF
+--enum=direction:to-english:to-english,from-english
+--enum=language:$(head -n 1 <"$file"):$(tr '\n' ',' <"$file" | sed 's/,$//')
+
+EOF
+cat <<'EOF'
+--no-append-args
+EOF
