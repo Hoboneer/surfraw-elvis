@@ -31,15 +31,17 @@ duckduckgo.com/${SURFRAW_ddg_site}/?
 --map=redirect:kd
 
 EOF
+IFS='	'
 cat <<EOF_region
-# No region by default.
-# TODO: Add long-form names for each region as descriptions or value names.
---enum=region:wt-wt:$(tr '\n' ',' <"$GEN_DATA_DIR/duckduckgo-regions.gen" | sed 's/,$//')
+--enum=region:none:$(cut -f1 -d'	' <"$GEN_DATA_DIR/duckduckgo-regions.gen" | tr '\n' ',' | sed 's/,$//')
+--collapse=region:$(while read name value; do printf "$name,$value:"; done <"$GEN_DATA_DIR/duckduckgo-regions.gen" | sed 's/:$//')
 --map=region:kl
 # No protocol because \`mkelvis\` doesn't handle ':' characters as data--instead it dumbly splits arguments.
 --describe=region:'Set search region; See "duckduckgo.com/params" for more info'
 
 EOF_region
+IFS=' 	
+'
 cat <<EOF
 # I can't tell if multiple filetypes at once are supported.
 --list=filetypes:enum::pdf,docx,xlsx,pptx,html

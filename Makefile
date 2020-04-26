@@ -24,7 +24,18 @@ $(GEN_DATA_DIR)/duckduckgo-params.html.gen:
 	wget --no-verbose --output-document $@ https://duckduckgo.com/params
 
 $(GEN_DATA_DIR)/duckduckgo-regions.gen: $(GEN_DATA_DIR)/duckduckgo-params.html.gen
-	tidy -q -asxml $< 2>/dev/null | hxselect -c -s '\n' 'td.ctd + td.ctd > ul > li' | grep -E '^[a-z]{2}-[a-z]{2} for .*( \(.*\))?$$' | cut -f 1 -d ' ' | sort >$@
+	@# Regions file fields (tab-delimited): region name, url parameter value
+	tidy -q -asxml $< 2>/dev/null | \
+		hxselect -c -s '\n' 'td.ctd + td.ctd > ul > li' | \
+		grep -E '^[a-z]{2}-[a-z]{2} for .*( \([a-z]{2}\))?$$' | \
+		grep -v 'No region' | \
+		sed 's/\([a-z][a-z]-[a-z][a-z]\) for \(.*\)$$/\2\t\1/' | \
+		tr '[:upper:]' '[:lower:]' | \
+		awk 'BEGIN{FS="\t";OFS="\t"} \
+			/^(.* \([a-z]{2}\))/{gsub("\\(|\\)","",$$1)} \
+			{gsub(" ","-",$$1);print $$1, $$2;next}' | \
+		sort -k 1 >$@
+	printf 'none\twt-wt\n' >>$@
 
 $(ELVI_DIR)/ddg.sh-in: $(GEN_DATA_DIR)/duckduckgo-regions.gen
 	touch $@
