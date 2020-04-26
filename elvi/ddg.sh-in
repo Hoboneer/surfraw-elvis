@@ -1,4 +1,6 @@
+#!/bin/sh
 # Reference: https://duckduckgo.com/params
+cat <<'EOF'
 duckduckgo.com/${SURFRAW_ddg_site}/
 duckduckgo.com/${SURFRAW_ddg_site}/?
 --description='Search duckduckgo'
@@ -28,15 +30,17 @@ duckduckgo.com/${SURFRAW_ddg_site}/?
 --collapse=redirect:yes,on,1,1:no,off,0,-1
 --map=redirect:kd
 
+EOF
+cat <<EOF_region
 # No region by default.
-# There are *way* too many regions to list in an enum; the user should be able
-# to figure out their region, and it is unlikely to be changed from the time
-# the user sets their region in their config file anyway.
---anything=region:wt-wt
+# TODO: Add long-form names for each region as descriptions or value names.
+--enum=region:wt-wt:$(tr '\n' ',' <"$GEN_DATA_DIR/duckduckgo-regions.gen" | sed 's/,$//')
 --map=region:kl
-# No protocol because `mkelvis` doesn't handle ':' characters as data--instead it dumbly splits arguments.
+# No protocol because \`mkelvis\` doesn't handle ':' characters as data--instead it dumbly splits arguments.
 --describe=region:'Set search region; See "duckduckgo.com/params" for more info'
 
+EOF_region
+cat <<EOF
 # I can't tell if multiple filetypes at once are supported.
 --list=filetypes:enum::pdf,docx,xlsx,pptx,html
 --list-inline=filetypes:filetype
@@ -45,3 +49,4 @@ duckduckgo.com/${SURFRAW_ddg_site}/?
 --num-tabs=2
 
 --query-parameter=q
+EOF

@@ -18,6 +18,17 @@ completions: $(COMPLETIONS)
 check:
 	./opts.sh | ./lint.sh
 
+# `ddg` elvis:
+
+$(GEN_DATA_DIR)/duckduckgo-params.html.gen:
+	wget --no-verbose --output-document $@ https://duckduckgo.com/params
+
+$(GEN_DATA_DIR)/duckduckgo-regions.gen: $(GEN_DATA_DIR)/duckduckgo-params.html.gen
+	tidy -q -asxml $< 2>/dev/null | hxselect -c -s '\n' 'td.ctd + td.ctd > ul > li' | grep -E '^[a-z]{2}-[a-z]{2} for .*( \(.*\))?$$' | cut -f 1 -d ' ' | sort >$@
+
+$(ELVI_DIR)/ddg.sh-in: $(GEN_DATA_DIR)/duckduckgo-regions.gen
+	touch $@
+
 # `wordtranslate` elvis:
 
 $(GEN_DATA_DIR)/wordhippo.html.gen:
