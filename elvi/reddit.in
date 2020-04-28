@@ -1,7 +1,16 @@
+# Reference: https://www.reddit.com/wiki/search
 # Reference: https://www.reddit.com/dev/api#GET_search
-www.reddit.com
-www.reddit.com/search?
---description='Search reddit'
+'${SURFRAW_reddit_site}/r/${SURFRAW_reddit_subreddit:-all}'
+'${SURFRAW_reddit_site}/r/${SURFRAW_reddit_subreddit:-all}/search?restrict_sr=1&'
+--description='Search posts in a subreddit'
+
+--enum=site:reddit:reddit,oldreddit
+--collapse=site:reddit,www.reddit.com:oldreddit,old.reddit.com
+
+--anything=subreddit:all
+--alias=search:subreddit:anything
+--flag=global:subreddit:all
+--describe=subreddit:'Set subreddit to search in; "all" is a global search'
 
 --enum=sort:relevance:relevance,hot,top,new,comments
 --map=sort:sort
@@ -10,9 +19,16 @@ www.reddit.com/search?
 --collapse=time:all-time,all
 --map=time:t
 
---list=types:enum:subreddit,link,user:subreddit,link,user
---collapse=types:subreddit,sr
---map=types:type
+#--list=types:enum:subreddit,link,user:subreddit,link,user
+#--collapse=types:subreddit,sr
+#--map=types:type
+
+--yes-no=nsfw:no
+--inline=nsfw:nsfw
+--describe=nsfw:'Whether to include NSFW posts'
+
+# TODO: Include -flair= 'anything' option.
+# `mkelvis` needs to allow specifying whether empty values for inline or mapped variables actually "go through".
 
 # I don't know how the rest of the url parameters work nor whether they work in
 # a text browser.
