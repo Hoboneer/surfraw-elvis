@@ -3,16 +3,12 @@ include env-vars
 OBJECTS := $(wildcard $(ELVI_DIR)/*.in $(ELVI_DIR)/*.sh-in)
 OUTPUTS := $(OBJECTS:.in=.elvis)
 OUTPUTS := $(OUTPUTS:.sh-in=.elvis)
-COMPLETIONS := $(OUTPUTS:.elvis=.completion)
 
 .PHONY: all
-all: elvi completions
+all: elvi
 
 .PHONY: elvi
 elvi: $(OUTPUTS)
-
-.PHONY: completions
-completions: $(COMPLETIONS)
 
 .PHONY: check
 check:
@@ -81,14 +77,6 @@ $(ELVI_DIR)/%.elvis: $(ELVI_DIR)/%.in
 $(ELVI_DIR)/%.elvis: $(ELVI_DIR)/%.sh-in
 	./$< | grep -v '^[[:space:]]*\#' | xargs mkelvis $(notdir $(basename $@))
 	mv $(notdir $(basename $@)) $@
-
-$(ELVI_DIR)/%.completion: $(ELVI_DIR)/%.in
-	grep -v '^[[:space:]]*\#' $< | xargs mkelviscomps $(notdir $(basename $@))
-	mv $(notdir $@) $@
-
-$(ELVI_DIR)/%.completion: $(ELVI_DIR)/%.sh-in
-	./$< | grep -v '^[[:space:]]*\#' | xargs mkelviscomps $(notdir $(basename $@))
-	mv $(notdir $@) $@
 
 # For installing
 XDG_CONFIG_HOME ?= $(HOME)/.config

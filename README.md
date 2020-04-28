@@ -23,8 +23,7 @@ These are some elvi for sites I find interesting and/or useful.
 
     $ make
 
-Generate all elvi (`.elvis` extension) as well as their completions
-(`.completion` extension).  Generated elvi and completions will be placed in
+Generate all elvi (`.elvis` extension).  Generated elvi will be placed in
 elvi/.
 
     $ make install  # or make uninstall
@@ -38,13 +37,13 @@ you don't care about clobbering (or you are just reinstalling).
 Delete partially-installed elvi (i.e., elvi installed locally but still have a
 `.elvis` extension).  This runs at the same time as `make uninstall`.
 
-    $ make elvi  # or make completions
+    $ make elvi
 
-Just generate elvi or their completions.
+Just generate elvi.
 
     $ make clean
 
-Clean all elvi and completions.
+Clean all elvi.
 
     $ make clean-gen
 
