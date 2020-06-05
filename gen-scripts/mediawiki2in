@@ -1,0 +1,34 @@
+#!/bin/sh
+# mediawiki2in: Convert input files for mediawiki elvi to input files for `mkelvis`
+input="$1"
+output="$2"
+elvisname="$(basename "$input" .mediawiki-in)"
+
+# Strip comments and blank lines
+grep -v '^[[:space:]]*\#' "$input" | tr -s '\n' | {
+	i=0
+	# Output `mkelvis` arguments
+	while read line; do
+		case $i in
+			# Append domain
+			0) echo "$line" ;;
+			# Append search url
+			1) echo "'${line}title=Special:Search&\$(ok SURFRAW_${elvisname}_direct && echo \"go=Go\" || echo \"fulltext=Search\")&'" ;;
+			# Append description
+			2)
+				if [ -z "$line" ]; then
+					echo "--description='Search $elvisname wiki'"
+				else
+					echo "--description='$line'"
+				fi
+				;;
+
+		esac
+		i=$(( i + 1 ))
+	done
+	echo
+	echo '--yes-no=direct:yes'
+	echo "--describe=direct:'Enter page immediately if query matches title'"
+	echo
+	echo '--query-parameter=search'
+} >"$output"

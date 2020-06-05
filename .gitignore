@@ -2,3 +2,4 @@
 *.elvis
 *.completion
 gen-data/*.gen
+*.gen-in

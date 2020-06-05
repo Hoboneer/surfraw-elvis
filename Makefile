@@ -11,8 +11,25 @@ endef
 
 
 OBJECTS := $(wildcard $(ELVI_DIR)/*.in $(ELVI_DIR)/*.sh-in)
+
+# Files converted to .gen-in first, and then .elvis
+GEN_OBJECTS :=
+
+MEDIAWIKI_OBJ := $(wildcard $(ELVI_DIR)/*.mediawiki-in)
+GEN_OBJECTS += $(MEDIAWIKI_OBJ:.mediawiki-in=.gen-in)
+
+OBJECTS += $(GEN_OBJECTS)
+
 OUTPUTS := $(OBJECTS:.in=.elvis)
 OUTPUTS := $(OUTPUTS:.sh-in=.elvis)
+OUTPUTS := $(OUTPUTS:.gen-in=.elvis)
+
+OBJECTS := $(sort $(OBJECTS))
+GEN_OBJECTS := $(sort $(GEN_OBJECTS))
+OUTPUTS := $(sort $(OUTPUTS))
+
+# Don't generate then delete them after being used to create elvi
+.PRECIOUS: $(GEN_OBJECTS)
 
 
 
@@ -91,6 +108,19 @@ $(ELVI_DIR)/%.elvis: $(ELVI_DIR)/%.sh-in
 	./$< | grep -v '^[[:space:]]*\#' | xargs mkelvis $(notdir $(basename $@))
 	mv $(notdir $(basename $@)) $@
 
+# Generated input files
+$(ELVI_DIR)/%.elvis: $(ELVI_DIR)/%.gen-in
+	grep -v '^[[:space:]]*\#' $< | xargs mkelvis $(notdir $(basename $@))
+	mv $(notdir $(basename $@)) $@
+
+# Nothing too special to do here
+# Format of .mediawiki-in files:
+#   First line: domain
+#   Second line: search url
+#   Third line: description
+$(ELVI_DIR)/%.gen-in: $(ELVI_DIR)/%.mediawiki-in
+	$(GEN_SCRIPTS_DIR)/mediawiki2in $< $@
+
 
 
 # For installing
@@ -119,10 +149,21 @@ uninstall-partial:
 clean:
 	-rm -f -- $(wildcard $(ELVI_DIR)/*.elvis $(ELVI_DIR)/*.completion)
 
+.PHONY: clean-gen-in
+clean-gen-in:
+	-rm -f -- $(GEN_OBJECTS)
+
+.PHONY: clean-mediawiki-elvi
+clean-mediawiki-elvi:
+	-rm -f -- $(MEDIAWIKI_OUT:.gen-in=.elvis)
+
 # Clean non-elvis generator files
 .PHONY: clean-gen
 clean-gen:
 	-rm -f -- $(wildcard $(GEN_DATA_DIR)/*.gen)
 
+.PHONY: clean-gen-all
+clean-gen-all: clean-gen clean-gen-in
+
 .PHONY: clean-all
-clean-all: clean clean-gen
+clean-all: clean clean-gen-all
