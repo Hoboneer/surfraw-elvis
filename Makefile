@@ -14,6 +14,8 @@ OBJECTS := $(wildcard $(ELVI_DIR)/*.in $(ELVI_DIR)/*.sh-in)
 OUTPUTS := $(OBJECTS:.in=.elvis)
 OUTPUTS := $(OUTPUTS:.sh-in=.elvis)
 
+
+
 .PHONY: all
 all: elvi
 
@@ -75,6 +77,8 @@ $(GEN_DATA_DIR)/pirate-types.gen: $(GEN_DATA_DIR)/pirate-types-in
 $(ELVI_DIR)/pirate.sh-in: $(GEN_DATA_DIR)/pirate-types.gen
 	touch $@
 
+
+
 # General rules:
 
 # I'm not sure how to have a rule match with the basename of something
@@ -86,6 +90,8 @@ $(ELVI_DIR)/%.elvis: $(ELVI_DIR)/%.in
 $(ELVI_DIR)/%.elvis: $(ELVI_DIR)/%.sh-in
 	./$< | grep -v '^[[:space:]]*\#' | xargs mkelvis $(notdir $(basename $@))
 	mv $(notdir $(basename $@)) $@
+
+
 
 # For installing
 XDG_CONFIG_HOME ?= $(HOME)/.config
@@ -106,6 +112,8 @@ uninstall: uninstall-partial
 .PHONY: uninstall-partial
 uninstall-partial:
 	-rm -f -- $(strip $(foreach elvis, $(OUTPUTS), $(LOCAL_ELVI_DIR)/$(notdir $(elvis))))
+
+
 
 .PHONY: clean
 clean:
