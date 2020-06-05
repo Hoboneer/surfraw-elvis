@@ -27,8 +27,13 @@
 --inline=nsfw:nsfw
 --describe=nsfw:'Whether to include NSFW posts'
 
-# TODO: Include -flair= 'anything' option.
-# `mkelvis` needs to allow specifying whether empty values for inline or mapped variables actually "go through".
+--anything=flair:
+--inline=flair:flair
+
+--enum=self:any:any,only,none
+--collapse=self:any,:only,yes:none,no
+--inline=self:self
+--describe=self:'Whether to include text posts'
 
 # I don't know how the rest of the url parameters work nor whether they work in
 # a text browser.
