@@ -73,6 +73,19 @@ populate its enum `-site=` option).  May run arbitrary code when building.
 Note: The input files for these elvi are executable, so they may be binary or
 be executable scripts with a shebang.
 
+### Extra generated elvi (`.gen-in` extension)
+
+This is a family of elvi whose input files are simple plaintext files similar
+to "simple elvi" but require further processing.  These input files are
+converted to `.gen-in` files whose contents are the same as that of `.in`
+files.  No arbitrary code is run (except the build scripts in `gen-scripts/`
+and Makefile recipes).
+
+#### MediaWiki elvi (`.mediawiki-in` extension)
+
+For sites that use MediaWiki.  Provides a boolean `-direct=` option to specify
+whether to go straight to a page matching the query.
+
 ### Manual elvi (under `manual-elvi/`)
 
 These do not need building as they are written manually (hence the name).
