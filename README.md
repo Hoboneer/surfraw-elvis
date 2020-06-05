@@ -28,7 +28,7 @@ elvi/.
 
     $ make install  # or make uninstall
 
-Copy (or delete) elvi to ~/.config/surfraw/elvi.  Fails if an elvis may clobber
+Copy (or delete) elvi to `~/.config/surfraw/elvi`.  Fails if an elvis may clobber
 one already in the directory to install elvi.  Run `make uninstall install` if
 you don't care about clobbering (or you are just reinstalling).
 
@@ -73,7 +73,7 @@ populate its enum `-site=` option).  May run arbitrary code when building.
 Note: The input files for these elvi are executable, so they may be binary or
 be executable scripts with a shebang.
 
-### Manual elvi (under manual-elvi/)
+### Manual elvi (under `manual-elvi/`)
 
 These do not need building as they are written manually (hence the name).
 Note: These are not installed by `make install`.
