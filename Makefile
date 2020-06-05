@@ -132,22 +132,22 @@ LOCAL_ELVI_DIR := $(XDG_CONFIG_HOME)/surfraw/elvi
 install:
 	install -D -t $(LOCAL_ELVI_DIR) -m 755 -- $(OUTPUTS)
 	@# Perl's `rename` command
-	rename 's/\b\.elvis$$//' -- $(strip $(foreach elvis, $(OUTPUTS), $(LOCAL_ELVI_DIR)/$(notdir $(elvis))))
+	cd $(LOCAL_ELVI_DIR) && rename 's/\b\.elvis$$//' -- $(notdir $(OUTPUTS))
 
 .PHONY: uninstall
 uninstall: uninstall-partial
-	-rm -f -- $(strip $(foreach elvis, $(OUTPUTS), $(LOCAL_ELVI_DIR)/$(notdir $(basename $(elvis)))))
+	-cd $(LOCAL_ELVI_DIR) && rm -f -- $(notdir $(basename $(OUTPUTS)))
 
 # Delete partially installed elvi as well.
 .PHONY: uninstall-partial
 uninstall-partial:
-	-rm -f -- $(strip $(foreach elvis, $(OUTPUTS), $(LOCAL_ELVI_DIR)/$(notdir $(elvis))))
+	-cd $(LOCAL_ELVI_DIR) && rm -f -- $(notdir $(OUTPUTS))
 
 
 
 .PHONY: clean
 clean:
-	-rm -f -- $(wildcard $(ELVI_DIR)/*.elvis $(ELVI_DIR)/*.completion)
+	-cd $(ELVI_DIR) && rm -f -- $(notdir $(wildcard $(ELVI_DIR)/*.elvis $(ELVI_DIR)/*.completion))
 
 .PHONY: clean-gen-in
 clean-gen-in:
@@ -155,12 +155,12 @@ clean-gen-in:
 
 .PHONY: clean-mediawiki-elvi
 clean-mediawiki-elvi:
-	-rm -f -- $(MEDIAWIKI_OUT:.gen-in=.elvis)
+	-cd $(ELVI_DIR) && rm -f -- $(notdir $(MEDIAWIKI_OBJ:.mediawiki-in=.elvis))
 
 # Clean non-elvis generator files
 .PHONY: clean-gen
 clean-gen:
-	-rm -f -- $(wildcard $(GEN_DATA_DIR)/*.gen)
+	-cd $(GEN_DATA_DIR) && rm -f -- $(notdir $(wildcard $(GEN_DATA_DIR)/*.gen))
 
 .PHONY: clean-gen-all
 clean-gen-all: clean-gen clean-gen-in
