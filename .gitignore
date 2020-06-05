@@ -1,5 +1,5 @@
 # Generated files
 *.elvis
 *.completion
-gen-data/*.gen
+*.gen
 *.gen-in
