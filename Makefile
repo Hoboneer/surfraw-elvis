@@ -1,5 +1,15 @@
 include env-vars
 
+# Functions:
+
+# Download a file
+define gen_dl
+$(GEN_DATA_DIR)/$(strip $(1)).gen:
+	wget --no-verbose --output-document $$@ $(2)
+endef
+
+
+
 OBJECTS := $(wildcard $(ELVI_DIR)/*.in $(ELVI_DIR)/*.sh-in)
 OUTPUTS := $(OBJECTS:.in=.elvis)
 OUTPUTS := $(OUTPUTS:.sh-in=.elvis)
@@ -14,10 +24,11 @@ elvi: $(OUTPUTS)
 check:
 	./opts.sh | ./lint.sh
 
+
+
 # `ddg` elvis:
 
-$(GEN_DATA_DIR)/duckduckgo-params.html.gen:
-	wget --no-verbose --output-document $@ https://duckduckgo.com/params
+$(eval $(call gen_dl, duckduckgo-params.html, https://duckduckgo.com/params))
 
 $(GEN_DATA_DIR)/duckduckgo-regions.gen: $(GEN_DATA_DIR)/duckduckgo-params.html.gen
 	@# Regions file fields (tab-delimited): region name, url parameter value
@@ -38,8 +49,7 @@ $(ELVI_DIR)/ddg.sh-in: $(GEN_DATA_DIR)/duckduckgo-regions.gen
 
 # `wordtranslate` elvis:
 
-$(GEN_DATA_DIR)/wordhippo.html.gen:
-	wget --no-verbose --output-document $@ https://www.wordhippo.com
+$(eval $(call gen_dl, wordhippo.html, https://www.wordhippo.com))
 
 $(GEN_DATA_DIR)/wordhippo-languages.gen: $(GEN_DATA_DIR)/wordhippo.html.gen
 	tidy -q -asxml 2>/dev/null $< | hxselect -s '\n' -c '#translateLanguage > option::attr(value)' | sort >$@
@@ -49,8 +59,7 @@ $(ELVI_DIR)/wordtranslate.sh-in: $(GEN_DATA_DIR)/wordhippo-languages.gen
 
 # `stack` elvis:
 
-$(GEN_DATA_DIR)/stackexchange-sites.html.gen:
-	wget --no-verbose --output-document $@ https://stackexchange.com/sites
+$(eval $(call gen_dl, stackexchange-sites.html, https://stackexchange.com/sites))
 
 $(GEN_DATA_DIR)/stackexchange-sites.gen: $(GEN_DATA_DIR)/stackexchange-sites.html.gen
 	tidy -q -asxml 2>/dev/null $< | hxselect 'div.grid-view-container' | hxselect -s '\n' -c 'a::attr(href)' >$@
