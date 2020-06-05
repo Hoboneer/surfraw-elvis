@@ -53,22 +53,27 @@ Remove generated, non-elvi files.
 
 An alias for `make clean clean-gen`.
 
-## Descriptions
+## Elvi types
 
-### Simple elvi
+### Simple elvi (`.in` extension)
+
+These elvi are generated from simple plaintext files whose contents correspond
+to the arguments of `mkelvis`, with line comments.
 
 Some elvi are simpler than others, taking ~3 lines in their `.in` file.  These
 are elvi that take no options and serve a similar function as surfraw bookmarks
-with embedded "%s".
+with embedded "%s".  The arguments usually correspond the basic form described
+in the README of `surfraw-tools`, possibly with a `--description=`.
 
-### Complex elvi
+### Complex elvi (`.sh-in` extension)
 
-These may take options, and may have more complex build requirements than
-other elvi (e.g., `stack` downloads the list of stackexchange sites and uses
-it to populate its enum `-site=` option).  May run arbitrary code when
-building with elvi using an `.sh-in` file.
+These may take options, and may have more complex build requirements than other
+elvi (e.g., `stack` downloads the list of stackexchange sites and uses it to
+populate its enum `-site=` option).  May run arbitrary code when building.
+Note: The input files for these elvi are executable, so they may be binary or
+be executable scripts with a shebang.
 
-### Manual elvi
+### Manual elvi (under manual-elvi/)
 
 These do not need building as they are written manually (hence the name).
 Note: These are not installed by `make install`.
