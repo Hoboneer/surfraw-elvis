@@ -8,4 +8,5 @@ export ELVI_DIR=elvi
 # Directory for non-elvi-input data files needed to build
 export GEN_DATA_DIR=gen-data
 export GEN_SCRIPTS_DIR=gen-scripts
+export GEN_LIBS_DIR=gen-libs
 

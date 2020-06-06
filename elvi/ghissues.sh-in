@@ -1,0 +1,38 @@
+#!/bin/sh
+. "${GEN_LIBS_DIR:-.}/github.lib" || exit 1
+github_header_args 'github.com/search?type=Issues&' 'Search GitHub issues'
+echo
+github_lang_opts
+cat <<'EOF_trailer'
+
+# Issues
+--enum=state:any:any,open,closed
+--collapse=state:any,
+--inline=state:state
+--describe=state:'Issues in the state'
+
+--list=comments:anything:
+--list-inline=comments:comments
+--describe=comments:'Number of comments (see github search syntax for more info)'
+
+--list=labels:anything:
+--list-inline=labels:label
+--describe=labels:'Issues with the labels'
+
+--list=authors:anything:
+--list-inline=authors:author
+--describe=authors:'Issues opened by the author'
+
+--list=mentions:anything:
+--list-inline=mentions:mentions
+--describe=mentions:'Issues mentioning the users'
+
+--list=assignees:anything:
+--list-inline=assignees:assignee
+--describe=assignees:'Issues assigned to the users'
+
+# Dates are a bit too complicated.
+# Perhaps make it 'anything' and just direct the user to the documentation like with 'comments'?
+
+--query-parameter=q
+EOF_trailer

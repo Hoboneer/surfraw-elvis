@@ -1,0 +1,43 @@
+github_lang_file="${GEN_DATA_DIR:-.}/github-languages.gen"
+github_header_args ()
+{
+	search_url="$1"; shift
+	description="$1"; shift
+	cat <<EOF_header
+github.com
+$search_url
+--description='$description'
+
+# No owners by default.
+--list=owners:anything:
+--list-inline=owners:user
+--describe=owners:'From these owners'
+
+# No repos by default.
+--list=repos:anything:
+--list-inline=repos:repo
+--describe=repos:'In these repositories'
+EOF_header
+}
+# User-facing
+github_lang_names ()
+{
+	cut -d '	' -f 1 "$github_lang_file"
+}
+# Search engine-facing
+github_lang_values ()
+{
+	cut -d '	' -f 2 "$github_lang_file"
+}
+github_lang_opts ()
+{
+	cat <<EOF_lang
+# All GitHub languages
+--enum=language:any:$(github_lang_names | tr '\n ' ',' | sed 's/,$//')
+--alias=l:language:enum
+# Wrap values in quotes if needed
+--collapse=language:$(sed "s,',\\\\',g" "$github_lang_file" | awk 'BEGIN{FS="\t";OFS=",";ORS=":"} $2 ~ /[[:space:]]|#/ {print $1, "\"" $2 "\""; next} {print $1, $2}' | sed 's/:$//')
+--inline=language:language
+--describe=language:"Written in this language"
+EOF_lang
+}

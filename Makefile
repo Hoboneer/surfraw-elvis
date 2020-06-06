@@ -94,6 +94,22 @@ $(GEN_DATA_DIR)/pirate-types.gen: $(GEN_DATA_DIR)/pirate-types-in
 $(ELVI_DIR)/pirate.sh-in: $(GEN_DATA_DIR)/pirate-types.gen
 	touch $@
 
+# `github`-related elvi:
+
+$(eval $(call gen_dl, github-search.html, https://github.com/search/advanced))
+
+$(GEN_DATA_DIR)/github-languages.gen: $(GEN_DATA_DIR)/github-search.html.gen
+	hxclean $< | hxselect -cs '\n' '#search_language > optgroup > option::attr(value)' | hxunent >$@.tmp
+	@# All of the input must be processed before `sort` writes to file--no messed up files here!
+	tr '[:upper:]' '[:lower:]' <$@.tmp | sed -e 's/#/-sharp/' -e 's/*/-star/' -e 's/ /-/g' -e 's/(\|)\|\.\|'"'//g" | paste -d '\t' - $@.tmp | sort -k 1 -t '	' -o $@.tmp
+	@# Ensure 'any' language is the first option shown
+	printf 'any\t\n' | cat - $@.tmp >$@
+	rm -f $@.tmp
+
+# They all depend on the same file
+$(ELVI_DIR)/github.sh-in $(ELVI_DIR)/ghrepos.sh-in $(ELVI_DIR)/ghissues.sh-in: $(GEN_DATA_DIR)/github-languages.gen
+	touch $@
+
 
 
 # General rules:

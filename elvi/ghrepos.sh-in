@@ -1,0 +1,18 @@
+#!/bin/sh
+. "${GEN_LIBS_DIR:-.}/github.lib" || exit 1
+github_header_args 'github.com/search?type=Repositories&' 'Search GitHub repositories'
+echo
+github_lang_opts
+cat <<'EOF_trailer'
+
+--enum=forks:not:not,and,only
+# 'not' is default if not present in search.
+--collapse=forks:not,:and,true
+--inline=forks:fork
+--describe=forks:"Operator for whether to include forks"
+--metavar=forks:operator
+
+--num-tabs=2
+
+--query-parameter=q
+EOF_trailer

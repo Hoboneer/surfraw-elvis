@@ -1,0 +1,21 @@
+#!/bin/sh
+# A better github elvis
+. "${GEN_LIBS_DIR:-.}/github.lib" || exit 1
+github_header_args 'github.com/search?' 'Search GitHub'
+cat <<'EOF_search'
+
+# There is no 'all' search type...
+--enum=search:repos:repos,code,commits,issues,packages,marketplace,topics,wikis,users
+--collapse=search:repos,Repositories:code,Code:commits,Commits:issues,Issues:packages,RegistryPackages:marketplace,Marketplace:topics,Topics:wikis,Wikis:users,Users
+--map=search:type
+--describe=search:'Limit search to CATEGORY'
+--metavar=search:category
+
+EOF_search
+github_lang_opts
+cat <<'EOF_trailer'
+
+--num-tabs=2
+
+--query-parameter=q
+EOF_trailer
