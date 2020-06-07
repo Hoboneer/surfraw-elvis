@@ -35,8 +35,14 @@ github_lang_opts ()
 # All GitHub languages
 --enum=language:any:$(github_lang_names | tr '\n ' ',' | sed 's/,$//')
 --alias=l:language:enum
-# Wrap values in quotes if needed
---collapse=language:$(sed "s,',\\\\',g" "$github_lang_file" | awk 'BEGIN{FS="\t";OFS=",";ORS=":"} $2 ~ /[[:space:]]|#/ {print $1, "\"" $2 "\""; next} {print $1, $2}' | sed 's/:$//')
+--collapse=language:$(awk '
+BEGIN{FS="\t";OFS=",";ORS=":"}
+# Wrap values in quotes if needed--double quotes if needed to avoid delimiter collisions
+$2 ~ /[[:space:]]|#/ && $2 ~ /'\''/ {print $1, "\"" $2 "\""; next}
+$2 ~ /[[:space:]]|#/ {print $1, "'\''" $2 "'\''"; next}
+# Escape single quotes in names with no whitespace
+$2 ~ /'\''/ {gsub("'\''","\\'\''",$2)}  # fall-through
+{print $1, $2}' "$github_lang_file"| sed 's/:$//')
 --inline=language:language
 --describe=language:"Written in this language"
 EOF_lang
