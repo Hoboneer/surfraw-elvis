@@ -1,0 +1,11 @@
+knowyourphrase.com
+knowyourphrase.com/?s=
+--description='Search Know Your Phrase for the meanings and origins of common phrases and popular sayings'
+# Example search:
+#https://knowyourphrase.com/?s=pot+calling+the+kettle+black&orderby=relevance&order=DESC&post_type=page%2Cattachment
+
+# There are 'orderby' (sort?), 'order', and 'post_type' query parameters.
+# The web interface doesn't provide any way to change them, and appear to be constants--so I'm not sure what their values are.
+# Perhaps its for future-proofing?
+
+#--query-parameter=s
