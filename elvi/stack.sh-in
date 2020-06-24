@@ -81,7 +81,8 @@ cat <<'EOF2'
 # Boolean operators
 # It would be nice if `mkelvis` supported nullable options (e.g., -opt=any).
 
---yes-no=hasaccepted:yes
+--enum=hasaccepted:yes:yes,no,any
+--collapse=hasaccepted:any,
 --inline=hasaccepted:hasaccepted
 --describe=hasaccepted:"Only return questions that have accepted answers"
 
