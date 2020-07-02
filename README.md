@@ -20,7 +20,7 @@ These are some elvi for sites I find interesting and/or useful.
 
 ## Quickstart
 
-    $ make
+    $ make  # or make elvi
 
 Generate all elvi.  Generated elvi will be placed in `elvi/`.
 
@@ -28,17 +28,13 @@ Generate all elvi.  Generated elvi will be placed in `elvi/`.
 
 Copy (or delete) elvi to `~/.config/surfraw/elvi`.
 
-    $ make elvi
-
-Just generate elvi.
-
     $ make clean
 
-Clean all elvi.
+Delete all generated elvi.
 
     $ make clean-gen
 
-Remove generated, non-elvi files.
+Delete generated data files.
 
     $ make clean-all
 
