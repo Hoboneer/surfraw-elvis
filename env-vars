@@ -1,9 +1,9 @@
 # Environment variables used for building elvi.
 # Can be sourced or included in shell scripts and makefiles.
 
-# Directory for:
-#   1. Input files for elvi (and their completions)
-#   2. Output elvi and completions
+# Directory for `mkelvis` input files.
+export SRCDIR=src
+# Directory for `mkelvis` output files.
 export ELVI_DIR=elvi
 # Directory for non-elvi-input data files needed to build
 export GEN_DATA_DIR=gen-data

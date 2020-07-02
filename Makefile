@@ -10,23 +10,23 @@ endef
 
 
 
-OBJECTS := $(wildcard $(ELVI_DIR)/*.in $(ELVI_DIR)/*.sh-in)
+OBJECTS := $(wildcard $(SRCDIR)/*.in $(SRCDIR)/*.sh-in)
 
 # Files converted to .gen-in first, and then .elvis
 GEN_OBJECTS :=
 
-MEDIAWIKI_OBJ := $(wildcard $(ELVI_DIR)/*.mediawiki-in)
+MEDIAWIKI_OBJ := $(wildcard $(SRCDIR)/*.mediawiki-in)
 GEN_OBJECTS += $(MEDIAWIKI_OBJ:.mediawiki-in=.gen-in)
 
 OBJECTS += $(GEN_OBJECTS)
 
-OUTPUTS := $(OBJECTS:.in=.elvis)
-OUTPUTS := $(OUTPUTS:.sh-in=.elvis)
-OUTPUTS := $(OUTPUTS:.gen-in=.elvis)
+OUTPUTS := $(OBJECTS:%.in=%)
+OUTPUTS := $(OUTPUTS:%.sh-in=%)
+OUTPUTS := $(OUTPUTS:%.gen-in=%)
 
 OBJECTS := $(sort $(OBJECTS))
 GEN_OBJECTS := $(sort $(GEN_OBJECTS))
-OUTPUTS := $(sort $(OUTPUTS))
+OUTPUTS := $(addprefix $(ELVI_DIR)/, $(notdir $(sort $(OUTPUTS))))
 
 # Don't generate then delete them after being used to create elvi
 .PRECIOUS: $(GEN_OBJECTS)
@@ -63,7 +63,7 @@ $(GEN_DATA_DIR)/duckduckgo-regions.gen: $(GEN_DATA_DIR)/duckduckgo-params.html.g
 		sort -k 1 >$@
 	printf 'none\twt-wt\n' >>$@
 
-$(ELVI_DIR)/ddg.sh-in: $(GEN_DATA_DIR)/duckduckgo-regions.gen
+$(SRCDIR)/ddg.sh-in: $(GEN_DATA_DIR)/duckduckgo-regions.gen
 	touch $@
 
 # `wordtranslate` elvis:
@@ -73,7 +73,7 @@ $(eval $(call gen_dl, wordhippo.html, https://www.wordhippo.com))
 $(GEN_DATA_DIR)/wordhippo-languages.gen: $(GEN_DATA_DIR)/wordhippo.html.gen
 	tidy -q -asxml 2>/dev/null $< | hxselect -s '\n' -c '#translateLanguage > option::attr(value)' | sort >$@
 
-$(ELVI_DIR)/wordtranslate.sh-in: $(GEN_DATA_DIR)/wordhippo-languages.gen
+$(SRCDIR)/wordtranslate.sh-in: $(GEN_DATA_DIR)/wordhippo-languages.gen
 	touch $@
 
 # `stack` elvis:
@@ -83,7 +83,7 @@ $(eval $(call gen_dl, stackexchange-sites.html, https://stackexchange.com/sites)
 $(GEN_DATA_DIR)/stackexchange-sites.gen: $(GEN_DATA_DIR)/stackexchange-sites.html.gen
 	tidy -q -asxml 2>/dev/null $< | hxselect 'div.grid-view-container' | hxselect -s '\n' -c 'a::attr(href)' | sort >$@
 
-$(ELVI_DIR)/stack.sh-in: $(GEN_DATA_DIR)/stackexchange-sites.gen
+$(SRCDIR)/stack.sh-in: $(GEN_DATA_DIR)/stackexchange-sites.gen
 	touch $@
 
 # `pirate` elvis:
@@ -91,7 +91,7 @@ $(ELVI_DIR)/stack.sh-in: $(GEN_DATA_DIR)/stackexchange-sites.gen
 $(GEN_DATA_DIR)/pirate-types.gen: $(GEN_DATA_DIR)/pirate-types-in
 	grep -v '^[[:space:]]*\#' $< | tr -s '\n' | sort -n -k 2 >$@
 
-$(ELVI_DIR)/pirate.sh-in: $(GEN_DATA_DIR)/pirate-types.gen
+$(SRCDIR)/pirate.sh-in: $(GEN_DATA_DIR)/pirate-types.gen
 	touch $@
 
 # `github`-related elvi:
@@ -107,7 +107,7 @@ $(GEN_DATA_DIR)/github-languages.gen: $(GEN_DATA_DIR)/github-search.html.gen
 	rm -f $@.tmp
 
 # They all depend on the same file
-$(ELVI_DIR)/github.sh-in $(ELVI_DIR)/ghrepos.sh-in $(ELVI_DIR)/ghissues.sh-in: $(GEN_DATA_DIR)/github-languages.gen
+$(SRCDIR)/github.sh-in $(SRCDIR)/ghrepos.sh-in $(SRCDIR)/ghissues.sh-in: $(GEN_DATA_DIR)/github-languages.gen
 	touch $@
 
 
@@ -116,25 +116,22 @@ $(ELVI_DIR)/github.sh-in $(ELVI_DIR)/ghrepos.sh-in $(ELVI_DIR)/ghissues.sh-in: $
 
 # I'm not sure how to have a rule match with the basename of something
 # Line comments are permitted
-$(ELVI_DIR)/%.elvis: $(ELVI_DIR)/%.in
-	grep -v '^[[:space:]]*\#' $< | xargs mkelvis $(notdir $(basename $@))
-	mv $(notdir $(basename $@)) $@
+$(ELVI_DIR)/%: $(SRCDIR)/%.in
+	grep -v '^[[:space:]]*\#' $< | xargs mkelvis $(notdir $(basename $@)) -o $@
 
-$(ELVI_DIR)/%.elvis: $(ELVI_DIR)/%.sh-in
-	./$< | grep -v '^[[:space:]]*\#' | xargs mkelvis $(notdir $(basename $@))
-	mv $(notdir $(basename $@)) $@
+$(ELVI_DIR)/%: $(SRCDIR)/%.sh-in
+	./$< | grep -v '^[[:space:]]*\#' | xargs mkelvis $(notdir $(basename $@)) -o $@
 
 # Generated input files
-$(ELVI_DIR)/%.elvis: $(ELVI_DIR)/%.gen-in
-	grep -v '^[[:space:]]*\#' $< | xargs mkelvis $(notdir $(basename $@))
-	mv $(notdir $(basename $@)) $@
+$(ELVI_DIR)/%: $(SRCDIR)/%.gen-in
+	grep -v '^[[:space:]]*\#' $< | xargs mkelvis $(notdir $(basename $@)) -o $@
 
 # Nothing too special to do here
 # Format of .mediawiki-in files:
 #   First line: domain
 #   Second line: search url
 #   Third line: description
-$(ELVI_DIR)/%.gen-in: $(ELVI_DIR)/%.mediawiki-in
+$(SRCDIR)/%.gen-in: $(SRCDIR)/%.mediawiki-in
 	$(GEN_SCRIPTS_DIR)/mediawiki2in $< $@
 
 
@@ -143,27 +140,19 @@ $(ELVI_DIR)/%.gen-in: $(ELVI_DIR)/%.mediawiki-in
 XDG_CONFIG_HOME ?= $(HOME)/.config
 LOCAL_ELVI_DIR := $(XDG_CONFIG_HOME)/surfraw/elvi
 
-# TODO: Install them in one go (remove suffixes....)
 .PHONY: install
 install:
 	install -D -t $(LOCAL_ELVI_DIR) -m 755 -- $(OUTPUTS)
-	@# Perl's `rename` command
-	cd $(LOCAL_ELVI_DIR) && rename 's/\b\.elvis$$//' -- $(notdir $(OUTPUTS))
 
 .PHONY: uninstall
-uninstall: uninstall-partial
+uninstall:
 	-cd $(LOCAL_ELVI_DIR) && rm -f -- $(notdir $(basename $(OUTPUTS)))
-
-# Delete partially installed elvi as well.
-.PHONY: uninstall-partial
-uninstall-partial:
-	-cd $(LOCAL_ELVI_DIR) && rm -f -- $(notdir $(OUTPUTS))
 
 
 
 .PHONY: clean
 clean:
-	-cd $(ELVI_DIR) && rm -f -- $(notdir $(wildcard $(ELVI_DIR)/*.elvis $(ELVI_DIR)/*.completion))
+	-cd $(ELVI_DIR) && rm -f -- $(notdir $(wildcard $(ELVI_DIR)/*))
 
 .PHONY: clean-gen-in
 clean-gen-in:
@@ -171,7 +160,7 @@ clean-gen-in:
 
 .PHONY: clean-mediawiki-elvi
 clean-mediawiki-elvi:
-	-cd $(ELVI_DIR) && rm -f -- $(notdir $(MEDIAWIKI_OBJ:.mediawiki-in=.elvis))
+	-cd $(ELVI_DIR) && rm -f -- $(notdir $(MEDIAWIKI_OBJ:%.mediawiki-in=%))
 
 # Clean non-elvis generator files
 .PHONY: clean-gen
