@@ -1,6 +1,6 @@
 #!/bin/sh
 # Print options of each elvis
-for elvis in elvi/*.elvis; do
+for elvis in elvi/*; do
 	printf "%s:%s\n" $elvis "$(./$elvis --local-help |
 		# Only get options
 		sed -E -e '1,/^Local options:/d' -e 's/(^[[:space:]]*)|(\|.*$)//g' |
