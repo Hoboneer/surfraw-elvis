@@ -20,6 +20,9 @@ These are some elvi for sites I find interesting and/or useful.
 
 ## Quickstart
 
+Make sure `elvi/` exists before doing any of the following commands by running
+`mkdir elvi`.
+
     $ make  # or make elvi
 
 Generate all elvi.  Generated elvi will be placed in `elvi/`.
