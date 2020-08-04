@@ -1,0 +1,20 @@
+legislation.govt.nz
+# What does the 'p' parameter do?
+# '_' characters are special in these URLs for some reason.
+'legislation.govt.nz/all/results.aspx?search=ts_${SURFRAW_nzleg_search}_$(echo "$_" | sed s/_//g)_resel_${SURFRAW_nzleg_results}_a&p=1'
+# Content search is a bit more complex since 'Other Legislation' is invalid.
+# Only quick search.
+--description='Search New Zealand legislation by title for Acts, Bills, and Legislative Instruments'
+--insecure
+--no-append-args
+
+--enum=search:all:all,acts,bills,legislative-instruments,other-instruments
+--collapse=search:all,act@bill@regulation:acts,act:bills,bill:legislative-instruments,regulation
+# 'Other Legislation' appears to always be present.
+--collapse=search:other-instruments,deemedreg:*,${_}@deemedreg
+--collapse=search:*,'$(w3_url_escape "$_")'
+
+--enum=results:25:25,50,200
+--describe=results:'Number of search results returned'
+
+# http://legislation.govt.nz/all/results.aspx?search=ts_act%40bill%40regulation%40deemedreg_test_resel_25_a&p=1
