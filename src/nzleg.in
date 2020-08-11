@@ -17,4 +17,6 @@ legislation.govt.nz
 --enum=results:25:25,50,200
 --describe=results:'Number of search results returned'
 
+--num-tabs=2
+
 # http://legislation.govt.nz/all/results.aspx?search=ts_act%40bill%40regulation%40deemedreg_test_resel_25_a&p=1
