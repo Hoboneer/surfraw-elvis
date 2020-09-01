@@ -1,0 +1,5 @@
+fileinfo.com
+fileinfo.com/extension/
+--description='Search FileInfo for filetypes by extension, without the leading dot'
+
+# e.g., `sr fileinfo pdf`.
