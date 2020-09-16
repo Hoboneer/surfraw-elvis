@@ -2,7 +2,7 @@
 # Reference: https://duckduckgo.com/params
 cat <<'EOF'
 duckduckgo.com/${SURFRAW_ddg_site}/
-duckduckgo.com/${SURFRAW_ddg_site}/?
+'duckduckgo.com/${SURFRAW_ddg_site}/?${mappings}$(ifyes SURFRAW_ddg_lucky && w3_url_escape "!ducky ")$_'
 --description='Search duckduckgo'
 
 --enum=site:lite:lite,html,normal
@@ -42,13 +42,22 @@ cat <<EOF_region
 EOF_region
 IFS=' 	
 '
-cat <<EOF
+cat <<'EOF'
 # I can't tell if multiple filetypes at once are supported.
 --list=filetypes:enum::pdf,docx,xlsx,pptx,html
 --list-inline=filetypes:filetype
 --describe=filetypes:'Set file formats to search for'
 
+--yes-no=lucky:no
+--describe=lucky:'Feeling lucky? Jump to first result'
+--flag=lucky:lucky:yes
+--alias=d:lucky:flag
+--alias=ducky:lucky:flag
+--alias=l:lucky:flag
+
 --num-tabs=2
 
+--no-append-mappings
+--no-append-args
 --query-parameter=q
 EOF
