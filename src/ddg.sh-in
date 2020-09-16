@@ -42,11 +42,19 @@ cat <<EOF_region
 EOF_region
 IFS=' 	
 '
-cat <<EOF
+cat <<'EOF'
 # I can't tell if multiple filetypes at once are supported.
 --list=filetypes:enum::pdf,docx,xlsx,pptx,html
 --list-inline=filetypes:filetype
 --describe=filetypes:'Set file formats to search for'
+
+--yes-no=lucky:no
+--describe=lucky:'Feeling lucky? Jump to first result'
+--flag=lucky:lucky:yes
+--alias=d:lucky:flag
+--alias=ducky:lucky:flag
+--alias=l:lucky:flag
+'--query-collapse=*,$(ifyes SURFRAW_ddg_ducky && echo "!ducky $_" || echo "$_")'
 
 --num-tabs=2
 
