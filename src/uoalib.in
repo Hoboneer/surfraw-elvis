@@ -1,0 +1,35 @@
+catalogue.library.auckland.ac.nz
+catalogue.library.auckland.ac.nz/primo-explore/search?vid=NEWUI&offset=0&
+--description="Search for books, articles, and more in the University of Auckland's Catalogue"
+
+# "Books+"
+#https://catalogue.library.auckland.ac.nz/primo-explore/search?query=any,contains,foo&tab=books&search_scope=Combined_Local&vid=NEWUI&offset=0
+# "Articles and more"
+#https://catalogue.library.auckland.ac.nz/primo-explore/search?query=any,contains,foo&tab=articles&search_scope=Primo_Central&vid=NEWUI&offset=0
+# "Combined"
+#https://catalogue.library.auckland.ac.nz/primo-explore/search?query=any,contains,foo&tab=combined&search_scope=Combined_All&vid=NEWUI&offset=0
+
+# Won't *also* map "tab" since it doesn't seem to be required.
+--enum=search:combined:books+,articles+,combined
+--collapse=search:books+,Combined_Local:articles+,Primo_Central:combined,Combined_All
+--map=search:search_scope
+
+--enum=sort:relevance:relevance,newest,oldest,title,author
+--collapse=sort:relevance,rank:newest,date:oldest,date2
+--map=sort:sortby
+
+# The other search filters are too conflated in the query parameters, as the all-purpose "facet" parameter.
+# This elvis won't support them, which are:
+#   * Availability
+#   * Format
+#   * Date
+#   * Location
+#   * Subject
+#   * Genres
+#   * Author/Contributor
+#   * Language
+#   * New Records
+
+# 0o054 is the ASCII value for the comma (",").
+'--query-collapse=*,$([ -n "$_" ] && printf "any\054contains\054%s" "$_")'
+--query-parameter=query
