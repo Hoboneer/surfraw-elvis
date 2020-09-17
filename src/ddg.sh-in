@@ -54,7 +54,7 @@ cat <<'EOF'
 --alias=d:lucky:flag
 --alias=ducky:lucky:flag
 --alias=l:lucky:flag
-'--query-collapse=*,$(ifyes SURFRAW_ddg_ducky && echo "!ducky $_" || echo "$_")'
+'--query-collapse=*,$(ifyes SURFRAW_ddg_lucky && echo "!ducky $_" || echo "$_")'
 
 --num-tabs=2
 
