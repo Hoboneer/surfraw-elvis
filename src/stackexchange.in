@@ -1,0 +1,11 @@
+stackexchange.com
+stackexchange.com/search?
+--description='Search Stack Exchange globally'
+
+# Only 15, 30, or 50 results are supported per page...
+--enum=results:15:15,30,50
+--metavar=results:num
+--describe=results:'Number of search results returned'
+--map=results:pagesize
+
+--query-parameter=q
