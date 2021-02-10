@@ -1,0 +1,16 @@
+pbtech.co.nz
+www.pbtech.co.nz/search?
+--description='Search the PB Tech NZ website for products'
+
+# No easy way to find this.
+#--enum=search:
+#--map=search:searchtype
+
+--enum=sort:relevance:relevance,popularity,price-lowest,price-highest,name,rating,review-count,newest,pb-part-number,stock
+--collapse=sort:relevance,relevant:price-lowest,lowest_price:price-highest,highest_price:review-count,review:newest,age:pb-part-number,pc
+--map=sort:o
+--metavar=sort:property
+--describe=sort:"Sort by PROPERTY"
+
+--num-tabs=2
+--query-parameter=sf
