@@ -9,8 +9,12 @@
 
 --anything=subreddit:all
 --alias=search:subreddit:anything
---flag=global:subreddit:all
 --describe=subreddit:'Set subreddit to search in; "all" is a global search'
+
+--flag=global:subreddit:all
+--flag=universityofauckland:subreddit:universityofauckland
+--alias=uoa:universityofauckland:flag
+--flag=anime:subreddit:anime
 
 --enum=sort:relevance:relevance,hot,top,new,comments
 --map=sort:sort
