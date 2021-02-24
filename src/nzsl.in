@@ -1,0 +1,10 @@
+www.nzsl.nz/${SURFRAW_nzsl_helppage}
+www.nzsl.nz/signs/search?
+--description='Search the New Zealand Sign Language Dictionary'
+
+--enum=helppage:none:none,topics,alphabet,numbers,classifiers,help
+--collapse=helppage:none,
+--describe=helppage:'Quickly access a help page (only usable without search terms)'
+
+--num-tabs=2
+--query-parameter=s
