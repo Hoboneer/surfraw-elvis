@@ -1,5 +1,5 @@
 www.python.org/dev/peps/
-'www.python.org/dev/peps/pep-$(printf "%4s\n" "$_" | tr " " 0)'
+'www.python.org/dev/peps/pep-$(printf "%4s\n" "$it" | tr " " 0)'
 --description='Search PEPs by number'
 --no-append-args
 --num-tabs=2

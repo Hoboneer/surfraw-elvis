@@ -6,7 +6,7 @@ types="$GEN_DATA_DIR/pirate-types.gen"
 cat <<'EOF_header'
 # On empty search: Browse categories if any are selected.
 'thepiratebay.org/$([ -n "$SURFRAW_pirate_search" ] && echo "browse/$SURFRAW_pirate_search/0/$SURFRAW_pirate_sort/0")'
-'thepiratebay.org/search/$_/0/$SURFRAW_pirate_sort/${SURFRAW_pirate_search:-0}'
+'thepiratebay.org/search/${it}/0/$SURFRAW_pirate_sort/${SURFRAW_pirate_search:-0}'
 --description='Search The Pirate Bay for torrents'
 
 EOF_header

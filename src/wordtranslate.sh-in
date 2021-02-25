@@ -1,7 +1,7 @@
 #!/bin/sh
 cat <<'EOF'
 www.wordhippo.com
-'www.wordhippo.com/what-is/$(case "$SURFRAW_wordtranslate_direction" in (to-english) echo "the-meaning-of/$SURFRAW_wordtranslate_language-word-$_.html";; (from-english) echo "the/$SURFRAW_wordtranslate_language-word-for-$_.html";; esac)'
+'www.wordhippo.com/what-is/$(case "$SURFRAW_wordtranslate_direction" in (to-english) echo "the-meaning-of/$SURFRAW_wordtranslate_language-word-${it}.html";; (from-english) echo "the/$SURFRAW_wordtranslate_language-word-for-${it}.html";; esac)'
 --description='Translate to and from English with WordHippo'
 
 EOF

@@ -2,7 +2,7 @@
 # Reference: https://duckduckgo.com/params
 cat <<'EOF'
 duckduckgo.com/${SURFRAW_ddg_site}/
-'duckduckgo.com/${SURFRAW_ddg_site}/?${mappings}$(ifyes SURFRAW_ddg_lucky && w3_url_escape "!ducky ")$_'
+'duckduckgo.com/${SURFRAW_ddg_site}/?${mappings}$(ifyes SURFRAW_ddg_lucky && w3_url_escape "!ducky ")${it}'
 --description='Search duckduckgo'
 
 --enum=site:lite:lite,html,normal

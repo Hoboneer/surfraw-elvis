@@ -1,5 +1,5 @@
 catalogue.library.auckland.ac.nz
-'catalogue.library.auckland.ac.nz/primo-explore/search?vid=NEWUI&offset=0&${mappings}$(w3_url_escape "any,contains,")$_'
+'catalogue.library.auckland.ac.nz/primo-explore/search?vid=NEWUI&offset=0&${mappings}$(w3_url_escape "any,contains,")${it}'
 --description="Search for books, articles, and more in the University of Auckland's Catalogue"
 
 # "Books+"

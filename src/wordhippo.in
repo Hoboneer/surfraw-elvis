@@ -1,5 +1,5 @@
 www.wordhippo.com
-www.wordhippo.com/what-is/$SURFRAW_wordhippo_search/$_.html
+www.wordhippo.com/what-is/$SURFRAW_wordhippo_search/${it}.html
 --description='Search WordHippo for language services'
 
 --enum=search:definitions:definitions,synonyms,antonyms,rhymes,sentences
