@@ -17,6 +17,10 @@ $search_url
 --list=repos:anything:
 --list-inline=repos:repo
 --describe=repos:'In these repositories'
+
+--flag=srtools:repos:hoboneer/surfraw-tools
+--flag=myelvi:repos:hoboneer/surfraw-elvis
+--flag=mystuff:repos:hoboneer/surfraw-tools,hoboneer/surfraw-elvis
 EOF_header
 }
 # User-facing
