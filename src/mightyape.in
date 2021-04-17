@@ -1,0 +1,21 @@
+www.mightyape.co.nz
+'www.mightyape.co.nz/search?q=${it}$(ifyes SURFRAW_mightyape_instock && echo "+stock~instock"; ifyes SURFRAW_mightyape_insupply && echo "+stock~supplier")&'
+--description='Search for products in all departments on Mighty Ape'
+
+--enum=sort:relevance:relevance,popularity,title,price-lowest,price-highest,newest,oldest
+# Yes, "3" is skipped for some reason.
+--collapse=sort:relevance,8:popularity,1:title,2:price-lowest,4:price-highest,5:newest,6:oldest,7
+--map=sort:sort
+
+--enum=display:gallery:gallery,details
+--collapse=display:gallery,2:details,1
+--map=display:bdm
+
+--yes-no=instock:no
+--yes-no=insupply:no
+--describe=instock:'In stock at Mighty Ape; a false value means either yes/no'
+--describe=insupply:'Available from supplier; a false value means either yes/no'
+--flag=instock:instock:yes
+--flag=insupply:insupply:yes
+
+--no-append-args
