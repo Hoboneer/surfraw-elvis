@@ -1,16 +1,22 @@
 #!/bin/sh
 cat <<'EOF'
 www.wordhippo.com
-'www.wordhippo.com/what-is/$(case "$SURFRAW_wordtranslate_direction" in (to-english) echo "the-meaning-of/$SURFRAW_wordtranslate_language-word-${it}.html";; (from-english) echo "the/$SURFRAW_wordtranslate_language-word-for-${it}.html";; esac)'
+# Good thing that wordhippo supports GET searches too
+www.wordhippo.com/what-is/process-form.html?action=translate&wordformtype=translate&
 --description='Translate to and from English with WordHippo'
 
 EOF
 file="$GEN_DATA_DIR/wordhippo-languages.gen"
 cat <<EOF
+# If the direction is wrong, wordhippo seems to correct it for you
 --enum=direction:to-english:to-english,from-english
+--collapse=direction:to-english,to_en:from-english,from_en
+--map=direction:type
+
 --enum=language:$(head -n 1 <"$file"):$(tr '\n' ',' <"$file" | sed 's/,$//')
+--map=language:lang
 
 EOF
 cat <<'EOF'
---no-append-args
+--query-parameter=word
 EOF
