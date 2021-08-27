@@ -1,0 +1,9 @@
+courseoutline.auckland.ac.nz
+courseoutline.auckland.ac.nz/dco/course/advanceSearch?
+--description='Search and view course information for courses offered at the University of Auckland'
+
+--query-parameter=advanceSearchText
+
+# Example search:
+#   https://courseoutline.auckland.ac.nz/dco/course/advanceSearch?advanceSearchText=compsci399&termCodeYear=&termCodeTerm=&facultyId=&organisationCode=&stage=
+# The advanced search form seems to populate itself with javascript.  No thanks.
