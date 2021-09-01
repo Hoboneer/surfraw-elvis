@@ -1,3 +1,5 @@
+#!/bin/sh
+cat <<'EOF_header'
 www.mightyape.co.nz
 'www.mightyape.co.nz/search?q=${it}$(ifyes SURFRAW_mightyape_instock && echo "+stock~instock"; ifyes SURFRAW_mightyape_insupply && echo "+stock~supplier")&'
 --description='Search for products in all departments on Mighty Ape'
@@ -11,6 +13,19 @@ www.mightyape.co.nz
 --collapse=display:gallery,2:details,1
 --map=display:bdm
 
+EOF_header
+
+: "${GEN_DATA_DIR:-.}"
+cat <<EOF
+--enum=search:all:$(cut -f 2 "$GEN_DATA_DIR/mightyape-departments.gen" | tr '\n' ',' | sed 's/,$//')
+--collapse=search:$(awk -F '\t' -v ORS=: -v OFS=, '{print $2, $1}' "$GEN_DATA_DIR/mightyape-departments.gen" | sed 's/:$//' )
+--map=search:i
+--describe=search:'Search in department'
+--metavar=search:department
+
+EOF
+
+cat <<'EOF_end'
 --yes-no=instock:no
 --yes-no=insupply:no
 --describe=instock:'In stock at Mighty Ape; a false value means either yes/no'
@@ -19,3 +34,4 @@ www.mightyape.co.nz
 --flag=insupply:insupply:yes
 
 --no-append-args
+EOF_end
