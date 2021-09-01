@@ -63,8 +63,7 @@ $(GEN_DATA_DIR)/duckduckgo-regions.gen: $(GEN_DATA_DIR)/duckduckgo-params.html.g
 		sort -k 1 >$@
 	printf 'none\twt-wt\n' >>$@
 
-$(SRCDIR)/ddg.sh-in: $(GEN_DATA_DIR)/duckduckgo-regions.gen
-	touch $@
+$(ELVI_DIR)/ddg: $(GEN_DATA_DIR)/duckduckgo-regions.gen
 
 # `wordtranslate` elvis:
 
@@ -73,8 +72,7 @@ $(eval $(call gen_dl, wordhippo.html, https://www.wordhippo.com))
 $(GEN_DATA_DIR)/wordhippo-languages.gen: $(GEN_DATA_DIR)/wordhippo.html.gen
 	tidy -q -asxml 2>/dev/null $< | hxselect -s '\n' -c '#translateLanguage > option::attr(value)' | sort >$@
 
-$(SRCDIR)/wordtranslate.sh-in: $(GEN_DATA_DIR)/wordhippo-languages.gen
-	touch $@
+$(ELVI_DIR)/wordtranslate: $(GEN_DATA_DIR)/wordhippo-languages.gen
 
 # `stack` elvis:
 
@@ -83,16 +81,14 @@ $(eval $(call gen_dl, stackexchange-sites.html, https://stackexchange.com/sites)
 $(GEN_DATA_DIR)/stackexchange-sites.gen: $(GEN_DATA_DIR)/stackexchange-sites.html.gen
 	tidy -q -asxml 2>/dev/null $< | hxselect 'div.grid-view-container' | hxselect -s '\n' -c 'a::attr(href)' | sort >$@
 
-$(SRCDIR)/stack.sh-in: $(GEN_DATA_DIR)/stackexchange-sites.gen
-	touch $@
+$(ELVI_DIR)/stack: $(GEN_DATA_DIR)/stackexchange-sites.gen
 
 # `pirate` elvis:
 
 $(GEN_DATA_DIR)/pirate-types.gen: $(GEN_DATA_DIR)/pirate-types-in
 	grep -v '^[[:space:]]*\#' $< | tr -s '\n' | sort -n -k 2 >$@
 
-$(SRCDIR)/pirate.sh-in: $(GEN_DATA_DIR)/pirate-types.gen
-	touch $@
+$(ELVI_DIR)/pirate: $(GEN_DATA_DIR)/pirate-types.gen
 
 # `github`-related elvi:
 
@@ -107,8 +103,7 @@ $(GEN_DATA_DIR)/github-languages.gen: $(GEN_DATA_DIR)/github-search.html.gen
 	rm -f $@.tmp
 
 # They all depend on the same file
-$(SRCDIR)/github.sh-in $(SRCDIR)/ghrepos.sh-in $(SRCDIR)/ghissues.sh-in: $(GEN_DATA_DIR)/github-languages.gen
-	touch $@
+$(ELVI_DIR)/github $(ELVI_DIR)/ghrepos $(ELVI_DIR)/ghissues: $(GEN_DATA_DIR)/github-languages.gen
 
 
 
