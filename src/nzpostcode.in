@@ -1,0 +1,11 @@
+www.nzpostcode.com
+www.nzpostcode.com/search/?
+--description='Search for post codes in the New Zealand Postal Code Directory'
+
+--enum=region:auckland:auckland,bay-of-plenty,canterbury,gisborne,hawkes-bay,manawatu-wanganui,marlborough,nelson,northland,otago,southland,taranaki,tasman,waikato,wellington,west-coast
+'--collapse=region:auckland,Auckland:bay-of-plenty,Bay of Plenty:canterbury,Canterbury:gisborne,Gisborne:hawkes-bay,Hawkes Bay:manawatu-wanganui,Manawatu-Wanganui:marlborough,Marlborough:nelson,Nelson:northland,Northland:otago,Otago:southland,Southland:taranaki,Taranaki:tasman,Tasman:waikato,Waikato:wellington,Wellington:west-coast,West Coast'
+--map=region:region
+--describe=region:'Search by REGION'
+--alias=search:region:enum
+
+--query-parameter=keyword
