@@ -1,0 +1,14 @@
+# TODO: Support package completions in future versions of surfraw-tools.
+localhost/dwww/index.html
+localhost/cgi-bin/dwww?
+--description='Search dwww for documentation about programs or packages, in the Debian Documentation Menu, or in the registered documentation index'
+
+--enum=search:program:program,debdocmenu,registered-docs
+--collapse=search:program,p:debdocmenu,m:registered-docs,d
+--map=search:searchtype
+--describe=search:'Search in CATEGORY'
+--metavar=search:category
+
+--insecure
+--num-tabs=2
+--query-parameter=search
