@@ -1,0 +1,39 @@
+www.bookdepository.com
+www.bookdepository.com/search?
+--description='Search for books on Book Depository'
+
+--anything=title:
+--map=title:searchTitle
+
+--anything=author:
+--map=author:searchAuthor
+
+--anything=publisher:
+--map=publisher:searchPublisher
+
+--anything=isbn:
+--map=isbn:searchIsbn
+
+--enum=price:all:all,low,medium,high
+--collapse=price:all,:medium,med
+--map=price:price
+--describe=price:'Limit results to a price range'
+
+--enum=availability:all:all,in-stock,pre-order
+--collapse=availability:all,:in-stock,1:pre-order,2
+--map=availability:availability
+--alias=avail:availability:enum
+
+# TODO: languages
+
+--enum=format:all:all,paperback,hardback,audio,baby-books,digital,maps,stationery,toys
+--collapse=format:all,:paperback,1:hardback,2:audio,3:baby-books,4:digital,5:maps,6:stationery,7:toys,8
+--map=format:format
+
+# TODO: categories
+
+--enum=sort:popular:popular,price-lowest,price-highest,pubdate-newest,pubdate-oldest
+--collapse=sort:popular,popularity:price-lowest,price_low_high:price-highest,price_high_low:pubdate-newest,pubdate_high_low:pubdate-oldest,pubdate_low_high
+--map=sort:searchSortBy
+
+--query-parameter=searchTerm
