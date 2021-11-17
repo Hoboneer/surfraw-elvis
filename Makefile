@@ -103,12 +103,26 @@ $(ELVI_DIR)/pirate: $(GEN_DATA_DIR)/pirate-types.gen
 $(eval $(call gen_dl, github-search.html, https://github.com/search/advanced))
 
 $(GEN_DATA_DIR)/github-languages.gen: $(GEN_DATA_DIR)/github-search.html.gen
-	hxclean $< | hxselect -cs '\n' '#search_language > optgroup > option::attr(value)' | hxunent >$@.tmp
-	@# All of the input must be processed before `sort` writes to file--no messed up files here!
-	tr '[:upper:]' '[:lower:]' <$@.tmp | sed -e 's/#/-sharp/' -e 's/*/-star/' -e 's/ /-/g' -e 's/(\|)\|\.\|'"'//g" | paste -d '\t' - $@.tmp | sort -k 1 -t '	' -o $@.tmp
-	@# Ensure 'any' language is the first option shown
-	printf 'any\t\n' | cat - $@.tmp >$@
-	rm -f $@.tmp
+	hxclean $< | \
+		hxselect -cs '\n' '#search_language > optgroup > option::attr(value)' | \
+		hxunent | \
+		awk -v OFS='\t' '\
+			{ \
+				search_term = $$0; \
+				$$0 = tolower($$0); \
+				gsub(/#/, "-sharp"); \
+				gsub(/\*/, "-star"); \
+				gsub(/ /, "-"); \
+				# strip out parens, periods, and single quotes \
+				gsub(/[.)('\'']/, ""); \
+				# format: enum value, string to go in search query \
+				print $$0, search_term; \
+			}' | \
+		sort -k1 -t'	' | \
+		awk -v OFS="\t" '\
+			# 'any' language should be the first option shown \
+			BEGIN {print "any", ""} \
+			{print}' >$@
 
 # They all depend on the same file
 $(ELVI_DIR)/github $(ELVI_DIR)/ghrepos $(ELVI_DIR)/ghissues: $(GEN_DATA_DIR)/github-languages.gen
