@@ -8,6 +8,8 @@ These are some elvi for sites I find interesting and/or useful.
 
 * GNU Make
 * POSIX-compliant shell and utilities (e.g., `grep`, `tr`, and friends)
+  - NOTE: The Makefile uses only POSIX `awk` features, but `mawk` v1.3.3 on
+    Debian Buster has been problematic
 * surfraw-tools (>=v0.2.0, [here](https://github.com/hoboneer/surfraw-tools))
 * surfraw (required for running the generated elvi, but not for building)
 
