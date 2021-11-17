@@ -6,3 +6,6 @@ ${SURFRAW_fandomwiki_site}.fandom.com/wiki/Special:Search?query=
 --flag=yogscast:site:yogscast
 --alias=yogs:yogscast:flag
 --alias=yog:yogscast:flag
+
+--flag=worldofio:site:worldofio
+--alias=io:worldofio:flag
