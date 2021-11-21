@@ -1,9 +1,13 @@
-# Only for general searches like the myanimelist elvis.
+# Filters support:
+#  - type
+#  - sort
 www.youtube.com
-www.youtube.com/results?
+'www.youtube.com/results?sp=$([ -n "$SURFRAW_yt_search" ] && echo "CA${SURFRAW_yt_sort}SAhA${SURFRAW_yt_search}")&'
 --description='Search YouTube'
+
 # Singular form to be consistent with youtube's filters UI.
---enum=search:all:all,video,channel,playlist,movie,show
+--enum=search:all:all,video,channel,playlist,movie
+--collapse=search:all,:video,B:channel,C:playlist,D:movie,E
 # Don't break existing scripts.
 --alias=type:search:enum
 --describe=search:'Limit search to TYPE'
@@ -25,11 +29,10 @@ www.youtube.com/results?
 --flag=movie:search:movie
 --alias=movies:movie:flag
 
---flag=show:search:show
---alias=shows:show:flag
-
---collapse=search:all,:video,EgIQAQ%253D%253D:channel,EgIQAg%253D%253D:playlist,EgIQAw%253D%253D:movie,EgIQBA%253D%253D:show,EgIQBQ%253D%253D
---map=search:sp:no
+--enum=sort:relevance:relevance,date,views,rating
+--collapse=sort:relevance,A:date,I:views,M:rating,E
+--metavar=sort:property
+--describe=sort:'Sort by PROPERTY; does nothing if "all" TYPE is selected'
 
 --num-tabs=2
 
