@@ -35,6 +35,7 @@ OUTPUTS := $(addprefix $(ELVI_DIR)/, $(notdir $(sort $(OUTPUTS))))
 
 
 .PHONY: all
+.DEFAULT_GOAL := all
 all: elvi
 
 .PHONY: elvi
@@ -46,58 +47,10 @@ check:
 
 
 
-# `ddg` elvis:
+# Include submakefiles that process the data files to generate certain elvi
+$(foreach makefile,$(wildcard $(INCLUDE_DIR)/*.mk),$(eval include $(makefile)))
 
-$(eval $(call gen_dl, duckduckgo-params.html, https://duckduckgo.com/params))
-
-$(GEN_DATA_DIR)/duckduckgo-regions.gen: $(GEN_DATA_DIR)/duckduckgo-params.html.gen
-	@# Regions file fields (tab-delimited): region name, url parameter value
-	tidy -q -asxml $< 2>/dev/null | \
-		hxselect -c -s '\n' 'td.ctd + td.ctd > ul > li' | \
-		awk '\
-			/No region/ {next} \
-			# input format: ISOCODE for COUNTRY (CODE?) \
-			# output format: COUNTRY-CODE? TAB ISOCODE \
-			/^[a-z]{2}-[a-z]{2} for .*( \([a-z]{2}\))?$$/ { \
-				line = ""; \
-				for (i=3; i<NF; i++) { \
-					line = line tolower($$i) "-"; \
-				} \
-				line = line tolower($$NF) "\t"; \
-				line = line $$1; \
-				gsub("[)(]", "", line); \
-				print line; \
-			}' | \
-		sort -k1 | \
-		awk -v OFS="\t" '{print} END {print "none", "wt-wt";}' >$@
-
-
-$(ELVI_DIR)/ddg: $(GEN_DATA_DIR)/duckduckgo-regions.gen
-
-# `wordtranslate` elvis:
-
-$(eval $(call gen_dl, wordhippo.html, https://www.wordhippo.com))
-
-$(GEN_DATA_DIR)/wordhippo-languages.gen: $(GEN_DATA_DIR)/wordhippo.html.gen
-	tidy -q -asxml 2>/dev/null $< | hxselect -s '\n' -c '#translateLanguage > option::attr(value)' | sort >$@
-
-$(ELVI_DIR)/wordtranslate: $(GEN_DATA_DIR)/wordhippo-languages.gen
-
-# `stack` elvis:
-
-$(eval $(call gen_dl, stackexchange-sites.html, https://stackexchange.com/sites))
-
-$(GEN_DATA_DIR)/stackexchange-sites.gen: $(GEN_DATA_DIR)/stackexchange-sites.html.gen
-	tidy -q -asxml 2>/dev/null $< | hxselect 'div.grid-view-container' | hxselect -s '\n' -c 'a::attr(href)' | sort >$@
-
-$(ELVI_DIR)/stack: $(GEN_DATA_DIR)/stackexchange-sites.gen
-
-# `pirate` elvis:
-
-$(GEN_DATA_DIR)/pirate-types.gen: $(GEN_DATA_DIR)/pirate-types-in
-	grep -v '^[[:space:]]*\#' $< | tr -s '\n' | sort -n -k 2 >$@
-
-$(ELVI_DIR)/pirate: $(GEN_DATA_DIR)/pirate-types.gen
+# Data files that each build multiple elvi
 
 # `github`-related elvi:
 
@@ -127,16 +80,6 @@ $(GEN_DATA_DIR)/github-languages.gen: $(GEN_DATA_DIR)/github-search.html.gen
 
 # They all depend on the same file
 $(ELVI_DIR)/github $(ELVI_DIR)/ghrepos $(ELVI_DIR)/ghissues: $(GEN_DATA_DIR)/github-languages.gen
-
-# `mightyape` elvis:
-
-$(eval $(call gen_dl, mightyape.html, https://www.mightyape.co.nz))
-
-$(GEN_DATA_DIR)/mightyape-departments.gen: $(GEN_DATA_DIR)/mightyape.html.gen
-	hxclean < $< | hxselect '#headerSearchIn option' | hxpipe | \
-		awk -v OFS='\t' '/^Avalue CDATA/{val=$$3;next} /^-All Departments$$/{print val, "all";next} /^-/{gsub(",[[:space:]]*","-");gsub("[[:space:]]","-");gsub("&amp;","and");sub("^-","");print val, tolower($$0)}' > $@
-
-$(ELVI_DIR)/mightyape: $(GEN_DATA_DIR)/mightyape-departments.gen
 
 
 

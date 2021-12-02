@@ -66,6 +66,10 @@ populate its enum `-site=` option).  May run arbitrary code when building.
 Note: The input files for these elvi are executable, so they may be binary or
 be executable scripts with a shebang.
 
+Rules for building any files used to generate them are placed in submakefiles
+under `mk/`, with the name format `ELVIS.mk`.  This excludes the elvi generated
+by common input files (e.g. `github`, `gh*`).
+
 ### Extra generated elvi (`.gen-in` extension)
 
 This is a family of elvi whose input files are simple plaintext files similar
