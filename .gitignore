@@ -3,3 +3,6 @@ elvi/*
 *.gen
 *.gen-in
 *.tmp
+
+# Misc. tempfiles from text editors, etc.
+*.swp
