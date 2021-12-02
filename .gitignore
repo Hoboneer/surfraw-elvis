@@ -2,3 +2,4 @@
 elvi/*
 *.gen
 *.gen-in
+*.tmp
