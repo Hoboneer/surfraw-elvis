@@ -11,7 +11,7 @@ These are some elvi for sites I find interesting and/or useful.
   - NOTE: The Makefile uses only POSIX `awk` features, but `mawk` v1.3.3 on
     Debian Buster has been problematic
 * surfraw-tools (>=v0.2.0, [here](https://github.com/hoboneer/surfraw-tools))
-* surfraw (required for running the generated elvi, but not for building)
+* surfraw (required for running the generated elvi, but not for building simple elvi)
 
 ### Additional dependencies for more complex elvi
 
@@ -19,6 +19,7 @@ These are some elvi for sites I find interesting and/or useful.
 * GNU Wget
 * HTML Tidy
 * HTML-XML-utils
+* surfraw with OpenSearch enabled (for opensearch elvi, using `opensearch-discover`)
 
 ## Quickstart
 
@@ -77,6 +78,23 @@ and Makefile recipes).
 
 For sites that use MediaWiki.  Provides a boolean `-direct=` option to specify
 whether to go straight to a page matching the query.
+
+### OpenSearch elvi (`.opensearch-in` extension)
+
+For elvi generated from the site's OpenSearch description.  Contains the URL to
+the site, using `opensearch-discover` to get the OpenSearch description.
+
+Refresh OpenSearch description (and therefore elvis):
+
+```sh
+touch gen-data/*.opensearch.url.gen
+```
+
+Refresh OpenSearch URL (and therefore description):
+
+```sh
+touch src/*.opensearch-in
+```
 
 ### Manual elvi (under `manual-elvi/`)
 

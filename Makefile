@@ -10,7 +10,7 @@ endef
 
 
 
-OBJECTS := $(wildcard $(SRCDIR)/*.in $(SRCDIR)/*.sh-in)
+OBJECTS := $(wildcard $(SRCDIR)/*.in $(SRCDIR)/*.sh-in $(SRCDIR)/*.opensearch-in)
 
 # Files converted to .gen-in first, and then .elvis
 GEN_OBJECTS :=
@@ -23,13 +23,14 @@ OBJECTS += $(GEN_OBJECTS)
 OUTPUTS := $(OBJECTS:%.in=%)
 OUTPUTS := $(OUTPUTS:%.sh-in=%)
 OUTPUTS := $(OUTPUTS:%.gen-in=%)
+OUTPUTS := $(OUTPUTS:%.opensearch-in=%)
 
 OBJECTS := $(sort $(OBJECTS))
 GEN_OBJECTS := $(sort $(GEN_OBJECTS))
 OUTPUTS := $(addprefix $(ELVI_DIR)/, $(notdir $(sort $(OUTPUTS))))
 
-# Don't generate then delete them after being used to create elvi
-.PRECIOUS: $(GEN_OBJECTS)
+# Don't want to delete any intermediate files (by treating all targets as intermediate files that *aren't* deleted)
+.SECONDARY:
 
 
 
@@ -160,6 +161,16 @@ $(ELVI_DIR)/%: $(SRCDIR)/%.gen-in
 #   Third line: description
 $(SRCDIR)/%.gen-in: $(SRCDIR)/%.mediawiki-in
 	$(GEN_SCRIPTS_DIR)/mediawiki2in $< $@
+
+# Retrieve OpenSearch url of site (refresh with `touch *.opensearch-in`)
+$(GEN_DATA_DIR)/%.opensearch.url.gen: $(SRCDIR)/%.opensearch-in
+	opensearch-discover $(file <$<) >$@
+# Retrieve OpenSearch description (refresh with `touch *.opensearch.url.gen`)
+$(GEN_DATA_DIR)/%.opensearch.xml.gen: $(GEN_DATA_DIR)/%.opensearch.url.gen
+	wget --no-verbose --output-document $@ $(file <$<)
+# Make the elvis
+$(ELVI_DIR)/%: $(GEN_DATA_DIR)/%.opensearch.xml.gen
+	opensearch2elvis $(notdir $(basename $@)) $< -o $@
 
 
 
