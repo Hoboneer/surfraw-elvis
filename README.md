@@ -102,5 +102,6 @@ touch src/*.opensearch-in
 
 ### Manual elvi (under `manual-elvi/`)
 
-These do not need building as they are written manually (hence the name).
-Note: These are not installed by `make install`.
+These do not need building as they are written manually (hence the name), or
+generated once and placed there.  Note: The manual elvi to install need to be
+present in `manual-elvi.list`.

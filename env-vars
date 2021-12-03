@@ -11,3 +11,4 @@ export GEN_SCRIPTS_DIR=gen-scripts
 export GEN_LIBS_DIR=gen-libs
 # Directory for submakefiles (to be included)
 export INCLUDE_DIR=mk
+export MANUAL_ELVI_DIR=manual-elvi

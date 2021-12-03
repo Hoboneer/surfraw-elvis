@@ -128,14 +128,15 @@ $(ELVI_DIR)/%: $(GEN_DATA_DIR)/%.opensearch.xml.gen
 # For installing
 XDG_CONFIG_HOME ?= $(HOME)/.config
 LOCAL_ELVI_DIR := $(XDG_CONFIG_HOME)/surfraw/elvi
+MANUAL_ELVI := $(file <manual-elvi.list)
 
 .PHONY: install
 install:
-	install -D -t $(LOCAL_ELVI_DIR) -m 755 -- $(OUTPUTS)
+	install -D -t $(LOCAL_ELVI_DIR) -m 755 -- $(OUTPUTS) $(addprefix $(MANUAL_ELVI_DIR)/, $(MANUAL_ELVI))
 
 .PHONY: uninstall
 uninstall:
-	-cd $(LOCAL_ELVI_DIR) && rm -f -- $(notdir $(basename $(OUTPUTS)))
+	-cd $(LOCAL_ELVI_DIR) && rm -f -- $(notdir $(basename $(OUTPUTS))) $(MANUAL_ELVI)
 
 
 
