@@ -105,16 +105,19 @@ $(SRCDIR)/%.gen-in: $(SRCDIR)/%.mediawiki-in
 	$(GEN_SCRIPTS_DIR)/mediawiki2in $< $@
 
 # OpenSearch data files should remain on disk.
+# We touch the tempfiles since wget does some funky things with timestamps.
 .PRECIOUS: $(GEN_DATA_DIR)/%.opensearch.url.gen $(GEN_DATA_DIR)/%.opensearch.xml.gen
 # Retrieve OpenSearch url of site (refresh with `touch *.opensearch-in`)
 $(GEN_DATA_DIR)/%.opensearch.url.gen: $(SRCDIR)/%.opensearch-in
 	rm -f $@ $@.tmp
 	opensearch-discover $(file <$<) >$@.tmp
+	touch $@.tmp
 	mv $@.tmp $@
 # Retrieve OpenSearch description (refresh with `touch *.opensearch.url.gen`)
 $(GEN_DATA_DIR)/%.opensearch.xml.gen: $(GEN_DATA_DIR)/%.opensearch.url.gen
 	rm -f $@ $@.tmp
 	wget --no-verbose --output-document $@.tmp $(file <$<)
+	touch $@.tmp
 	mv $@.tmp $@
 # Make the elvis
 $(ELVI_DIR)/%: $(GEN_DATA_DIR)/%.opensearch.xml.gen
