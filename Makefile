@@ -105,8 +105,9 @@ $(SRCDIR)/%.gen-in: $(SRCDIR)/%.mediawiki-in
 	$(GEN_SCRIPTS_DIR)/mediawiki2in $< $@
 
 # OpenSearch data files should remain on disk.
+# Can't use patterns since GNU Make doesn't handle *these* patterns properly.
+.PRECIOUS: $(foreach OS_elvis, $(wildcard $(SRCDIR)/*.opensearch-in), $(addprefix $(GEN_DATA_DIR)/$(notdir $(basename $(OS_elvis))).opensearch., url.gen xml.gen))
 # We touch the tempfiles since wget does some funky things with timestamps.
-.PRECIOUS: $(GEN_DATA_DIR)/%.opensearch.url.gen $(GEN_DATA_DIR)/%.opensearch.xml.gen
 # Retrieve OpenSearch url of site (refresh with `touch *.opensearch-in`)
 $(GEN_DATA_DIR)/%.opensearch.url.gen: $(SRCDIR)/%.opensearch-in
 	rm -f $@ $@.tmp
