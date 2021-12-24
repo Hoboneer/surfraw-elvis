@@ -1,0 +1,5 @@
+# Requires JS
+https://help.webex.com
+https://help.webex.com/result/${it}?offset=10&filters=%7B%22product%22%3A%5B%22Webex+Meetings%22%5D%7D&count=1
+--description='Search documentation for Webex Meetings'
+--no-append-args
