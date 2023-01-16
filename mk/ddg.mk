@@ -3,7 +3,7 @@ $(eval $(call gen_dl, duckduckgo-params.html, https://duckduckgo.com/params))
 $(GEN_DATA_DIR)/duckduckgo-regions.gen: $(GEN_DATA_DIR)/duckduckgo-params.html.gen
 	@# Regions file fields (tab-delimited): region name, url parameter value
 	tidy -q -asxml $< 2>/dev/null | \
-		hxselect -c -s '\n' 'td.ctd + td.ctd > ul > li' | \
+		hxselect -c -s '\n' '#result-settings + table tbody > tr:first-child > td:nth-child(3) > ul > li' | \
 		awk '\
 			/No region/ {next} \
 			# input format: ISOCODE for COUNTRY (CODE?) \
