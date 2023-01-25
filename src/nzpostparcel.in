@@ -1,0 +1,4 @@
+https://www.nzpost.co.nz/tools/tracking
+https://www.nzpost.co.nz/tools/tracking?trackid=
+--description='Track parcels delivered by NZ Post using tracking numbers separated by commas'
+# TODO: allow tracking numbers to just be passed as separate arguments to the elvis, e.g., `surfraw $ELVIS NUM1 NUM2`.
