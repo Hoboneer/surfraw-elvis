@@ -1,0 +1,25 @@
+hub.docker.com
+'hub.docker.com/search?${SURFRAW_dockerhub_sort}'
+--description='Search Docker Hub for images'
+
+--enum=search:all:all,images,extensions,plugins
+--collapse=search:all,:images,image:extensions,extension:plugins,plugin
+--map=search:type
+--metavar=search:product
+--describe=search:'Search by PRODUCT'
+
+--enum=sort:relevance:relevance,recent
+--collapse='sort:relevance,:recent,sort=updated_at&order=desc&'
+
+--list=trustfilter:enum::official,verified-publisher,sponsored-oss
+--collapse=trustfilter:verified-publisher,store:sponsored-oss,open_source
+--map=trustfilter:image_filter
+
+--list=os:enum::linux,windows
+--map=os:operating_system
+
+--list=arch:enum::arm,arm64,ibm-power,ibm-z,powerpc64-le,x86,x86-64
+--collapse=arch:ibm-power,ppc:ibm-z,s390x:powerpc64-le,ppc64le:x86,386:x86-64,amd64
+--map=arch:architecture
+
+--query-parameter=q
