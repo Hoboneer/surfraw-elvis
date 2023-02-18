@@ -6,3 +6,5 @@ elvi/*
 
 # Misc. tempfiles from text editors, etc.
 *.swp
+*~
+*#
